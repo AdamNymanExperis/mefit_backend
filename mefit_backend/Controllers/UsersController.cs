@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using mefit_backend.models;
 using mefit_backend.models.domain;
+using mefit_backend.Service;
 
 namespace mefit_backend.Controllers
 {
@@ -14,32 +15,28 @@ namespace mefit_backend.Controllers
     [ApiController]
     public class UsersController : ControllerBase
     {
-        private readonly MeFitDbContext _context;
+        private readonly IUserService _userService;
 
-        public UsersController(MeFitDbContext context)
+        public UsersController(IUserService userService)
         {
-            _context = context;
-        }
-
-        // GET: api/Users
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<User>>> GetUsers()
-        {
-            return await _context.Users.ToListAsync();
+            _userService = userService;
         }
 
         // GET: api/Users/5
         [HttpGet("{id}")]
         public async Task<ActionResult<User>> GetUser(int id)
         {
-            var user = await _context.Users.FindAsync(id);
-
-            if (user == null)
+            try
             {
-                return NotFound();
+                return Ok(await _userService.GetUserById(id));
             }
-
-            return user;
+            catch ( Exception ex)//UserNotFoundException ex)
+            {
+                return NotFound(new ProblemDetails
+                {
+                    Detail = ex.Message
+                });
+            }
         }
 
         // PUT: api/Users/5
