@@ -10,6 +10,6 @@
         //Relationship
         public ICollection<Exercise> Exercises { get; set; }
         public ICollection<Goal> Goals { get; set; }
-        public ICollection<TrainingProgram> trainingPrograms { get; set; }
+        public ICollection<FitnessProgram> FitnessPrograms { get; set; }
     }
 }
