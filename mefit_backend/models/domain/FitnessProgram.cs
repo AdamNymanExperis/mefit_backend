@@ -1,6 +1,6 @@
 ﻿namespace mefit_backend.models.domain
 {
-    public class TrainingProgram
+    public class FitnessProgram
     {
         public int Id { get; set; }
         public string Name { get; set; }

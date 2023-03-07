@@ -7,10 +7,10 @@
         public int Height { get; set; }
 
         // relationships
-        public int user_id { get; set; }
+        public int UserId { get; set; }
         public User User { get; set; }
 
-        public int Address_id { get; set; }
+        public int AddressId { get; set; }
         public Address Address { get; set; }
 
         public ICollection<Goal> Goals { get; set; }

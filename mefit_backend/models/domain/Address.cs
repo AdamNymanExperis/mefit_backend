@@ -4,11 +4,11 @@ namespace mefit_backend.models.domain
 {
     public class Address
     {
-        public string Id { get; set; }
+        public int Id { get; set; }
         [Required]
-        public string Adress_line { get; set; }
+        public string AdressLine { get; set; }
         [Required]
-        public int Postal_code { get; set; }
+        public int PostalCode { get; set; }
         [Required]
         public string City { get; set; }
         [Required]

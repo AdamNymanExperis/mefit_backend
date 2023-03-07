@@ -6,17 +6,17 @@ namespace mefit_backend.models.domain
     {
         public int Id { get; set; }
         [Required]
-        public string First_name { get; set; }
+        public string FirstName { get; set; }
         [Required]
-        public string Last_name { get; set; }
+        public string LastName { get; set; }
         [Required]
         public string Email { get; set; }
         [Required]
         public string Password { get; set; }
         [Required]
-        public bool Is_Contributor { get; set; }
+        public bool IsContributor { get; set; }
         [Required]
-        public bool Is_Admin { get; set;}
+        public bool IsAdmin { get; set;}
 
         // relationship 
         public Profile Profile { get; set; }

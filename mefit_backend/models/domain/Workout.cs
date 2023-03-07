@@ -8,7 +8,7 @@
         public bool Complete { get; set; }
 
         //Relationship
-        public ICollection<Exercise> Exercises { get; set; }
+        public ICollection<WorkoutExercise> WorkoutExercise { get; set; }
         public ICollection<Goal> Goals { get; set; }
         public ICollection<FitnessProgram> FitnessPrograms { get; set; }
     }
