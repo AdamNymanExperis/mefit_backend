@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using mefit_backend.models;
 using mefit_backend.models.domain;
 using mefit_backend.Service;
+using Microsoft.AspNetCore.Authorization;
 
 namespace mefit_backend.Controllers
 {
@@ -23,6 +24,7 @@ namespace mefit_backend.Controllers
         }
 
         // GET: api/Users/5
+        //[Authorize(Roles = "USER")]
         [HttpGet("{id}")]
         public async Task<ActionResult<User>> GetUser(int id)
         {
@@ -38,7 +40,7 @@ namespace mefit_backend.Controllers
                 });
             }
         }
-
+        /*
         // PUT: api/Users/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
@@ -101,5 +103,6 @@ namespace mefit_backend.Controllers
         {
             return _context.Users.Any(e => e.Id == id);
         }
+        */
     }
 }

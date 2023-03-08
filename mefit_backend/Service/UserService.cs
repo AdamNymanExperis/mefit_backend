@@ -1,4 +1,6 @@
 ﻿using mefit_backend.models;
+using mefit_backend.models.domain;
+using Microsoft.EntityFrameworkCore;
 
 namespace mefit_backend.Service
 {
@@ -11,6 +13,14 @@ namespace mefit_backend.Service
             _context = context;
         }
 
-
+        public async Task<User> GetUserById(int id)
+        {
+            var user = await _context.Users.FirstOrDefaultAsync(x => x.Id == id);
+            if (user == null)
+            {
+                throw new Exception();
+            }
+            return user;
+        }
     }
 }
