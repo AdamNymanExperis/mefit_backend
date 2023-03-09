@@ -12,7 +12,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace mefit_backend.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/v1/")]
     [ApiController]
     public class UsersController : ControllerBase
     {
@@ -25,7 +25,7 @@ namespace mefit_backend.Controllers
 
         // GET: api/Users/5
         //[Authorize(Roles = "USER")]
-        [HttpGet("{id}")]
+        [HttpGet("User/{id}")]
         public async Task<ActionResult<User>> GetUser(int id)
         {
             try
@@ -40,69 +40,61 @@ namespace mefit_backend.Controllers
                 });
             }
         }
-        /*
-        // PUT: api/Users/5
+       
+       
+
+        // POST: api/Users
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutUser(int id, User user)
+        [HttpPost("User")]
+        public async Task<ActionResult<User>> PostUser(User user)
         {
+            await _userService.CreateUser(user);
+            return CreatedAtAction(nameof(user), new { id = user.Id }, user);
+        }
+
+        // DELETE: api/Users/5
+        [HttpDelete("User/{id}")]
+        public async Task<IActionResult> DeleteUser(int id)
+        {
+            try
+            {
+                await _userService.DeleteUser(id);
+            }
+            catch (UserNotFoundException ex)
+            {
+                return NotFound(new ProblemDetails
+                {
+                    Detail = ex.Message
+                });
+            }
+
+            return NoContent();
+        }
+
+        
+       // PUT: api/Users/5
+       // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+       [HttpPut("{id}")]
+       public async Task<IActionResult> PutUser(int id, User user)
+       {
             if (id != user.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(user).State = EntityState.Modified;
-
             try
             {
-                await _context.SaveChangesAsync();
+                await _userService.UpdateUser(user);
             }
-            catch (DbUpdateConcurrencyException)
+            catch (CharacterNotFoundException ex)
             {
-                if (!UserExists(id))
+                return NotFound(new ProblemDetails
                 {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
+                    Detail = ex.Message
+                });
             }
 
             return NoContent();
         }
-
-        // POST: api/Users
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost]
-        public async Task<ActionResult<User>> PostUser(User user)
-        {
-            _context.Users.Add(user);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetUser", new { id = user.Id }, user);
-        }
-
-        // DELETE: api/Users/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteUser(int id)
-        {
-            var user = await _context.Users.FindAsync(id);
-            if (user == null)
-            {
-                return NotFound();
-            }
-
-            _context.Users.Remove(user);
-            await _context.SaveChangesAsync();
-
-            return NoContent();
-        }
-
-        private bool UserExists(int id)
-        {
-            return _context.Users.Any(e => e.Id == id);
-        }
-        */
     }
 }
