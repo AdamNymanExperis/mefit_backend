@@ -1,16 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using mefit_backend.models;
-using mefit_backend.models.domain;
-using mefit_backend.Service;
+﻿using Microsoft.AspNetCore.Mvc;
 using mefit_backend.Services;
 using System.Net.Mime;
 using mefit_backend.Exceptions;
+using mefit_backend.Models.DTO.ProfileDtos;
+using AutoMapper;
 
 namespace mefit_backend.Controllers
 {
@@ -23,19 +16,21 @@ namespace mefit_backend.Controllers
     public class ProfilesController : ControllerBase
     {
         private readonly IProfileService _profileService;
+        private readonly IMapper _mapper;
 
-        public ProfilesController(IProfileService profileService)
+        public ProfilesController(IProfileService profileService ,IMapper mapper)
         {
             _profileService = profileService;
+            _mapper = mapper;
         }
 
         // GET: api/Profiles/5
         [HttpGet("profile/{id}")]
-        public async Task<ActionResult<Profile>> GetProfile(int id)
+        public async Task<ActionResult<GetProfileDto>> GetProfile(int id)
         {
             try
             {
-                return Ok(await _profileService.GetProfileById(id));
+                return Ok(_mapper.Map<GetProfileDto>(await _profileService.GetProfileById(id)));
             }
             catch (ProfileNotFoundException ex)
             {
@@ -49,17 +44,17 @@ namespace mefit_backend.Controllers
         // PUT: api/Profiles/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("profile/{id}")]
-        public async Task<IActionResult> PutProfile(int id, Profile profile)
+        public async Task<IActionResult> PutProfile(int id, PutProfileDto PutProfileDto)
         {
-            if (id != profile.Id)
+            if (id != PutProfileDto.Id)
             {
                 return BadRequest();
             }
 
             try
             {
-              
-                await _profileService.UpdateProfile(profile);
+                models.domain.Profile profileDomain = _mapper.Map<models.domain.Profile>(PutProfileDto);
+                await _profileService.UpdateProfile(profileDomain);
             }
             catch (ProfileNotFoundException ex)
             {
@@ -75,8 +70,9 @@ namespace mefit_backend.Controllers
         // POST: api/Profiles
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost("profile")]
-        public async Task<ActionResult<Profile>> PostProfile(Profile profile)
+        public async Task<ActionResult<models.domain.Profile>> PostProfile(CreateProfileDto createProfileDto)
         {
+            var profile = _mapper.Map<models.domain.Profile> (createProfileDto);
             await _profileService.CreateProfile(profile);
             return CreatedAtAction(nameof(GetProfile), new { id = profile.Id }, profile);
         }

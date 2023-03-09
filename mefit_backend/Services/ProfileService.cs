@@ -35,10 +35,10 @@ namespace mefit_backend.Services
 
         public async Task<Profile> GetProfileById(int id)
         {
-            var profile = await _context.Profiles.FirstOrDefaultAsync(x => x.Id == id);
+            var profile = await _context.Profiles.Include(x=> x.Goals).Include(x => x.Impairments).FirstOrDefaultAsync(x => x.Id == id);
             if (profile == null)
             {
-                throw new Exception();
+                throw new ProfileNotFoundException(id);
             }
             return profile;
         }
