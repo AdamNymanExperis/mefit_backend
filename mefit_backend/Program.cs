@@ -1,5 +1,6 @@
 using mefit_backend.models;
 using mefit_backend.Service;
+using mefit_backend.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -24,7 +25,7 @@ builder.Services.AddControllers();
 builder.Services.AddDbContext<MeFitDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))
 );
-
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -52,6 +53,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 
 builder.Services.AddTransient<IUserService, UserService>();
 builder.Services.AddTransient<IExerciseService, ExerciseService>();
+builder.Services.AddTransient<IProfileService, ProfileService>();
 
 var app = builder.Build();
 
