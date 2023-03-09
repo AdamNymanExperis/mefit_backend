@@ -44,16 +44,16 @@ namespace mefit_backend.Controllers
         // PUT: api/Profiles/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("profile/{id}")]
-        public async Task<IActionResult> PutProfile(int id, PutProfileDto PutProfileDto)
+        public async Task<IActionResult> PutProfile(int id, PutProfileDto putProfileDto)
         {
-            if (id != PutProfileDto.Id)
+            if (id != putProfileDto.Id)
             {
                 return BadRequest();
             }
 
             try
             {
-                models.domain.Profile profileDomain = _mapper.Map<models.domain.Profile>(PutProfileDto);
+                models.domain.Profile profileDomain = _mapper.Map<models.domain.Profile>(putProfileDto);
                 await _profileService.UpdateProfile(profileDomain);
             }
             catch (ProfileNotFoundException ex)
