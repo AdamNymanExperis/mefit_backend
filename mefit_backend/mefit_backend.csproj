@@ -28,7 +28,6 @@
 
   <ItemGroup>
     <Folder Include="Models\DTO\" />
-    <Folder Include="Profiles\" />
   </ItemGroup>
 
 </Project>

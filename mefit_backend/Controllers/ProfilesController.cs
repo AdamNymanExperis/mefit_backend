@@ -35,7 +35,6 @@ namespace mefit_backend.Controllers
         {
             try
             {
-                //return Ok(_mapper.Map<GetProfileDto>(await _profileService.getProfileById(id)));
                 return Ok(await _profileService.GetProfileById(id));
             }
             catch (ProfileNotFoundException ex)
