@@ -25,7 +25,7 @@ namespace mefit_backend.Controllers
         }
 
         // GET: api/Users/5
-        //[Authorize(Roles = "USER")]
+        [Authorize]//(Roles = "USER")]
         [HttpGet("User/{id}")]
         public async Task<ActionResult<User>> GetUser(int id)
         {
