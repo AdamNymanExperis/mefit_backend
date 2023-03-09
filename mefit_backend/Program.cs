@@ -27,6 +27,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddTransient<IUserService, UserService>();
+builder.Services.AddTransient<IExerciseService, ExerciseService>();
+
 
 var app = builder.Build();
 
