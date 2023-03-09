@@ -10,13 +10,8 @@ namespace mefit_backend.Service
         public Task DeleteUser(int id);
 
         public Task<User> UpdateUser(User user);
-        /*
-        public Task<User> GetAuthenticatedUser();
 
-        public Task UpdatePassword(int id, string password);*/
-
-
-
+        public Task<User> UpdateUserPassword(int id, string password);
 
     }
 }
