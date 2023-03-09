@@ -1,4 +1,5 @@
-﻿using mefit_backend.models;
+﻿using mefit_backend.Exceptions;
+using mefit_backend.models;
 using mefit_backend.models.domain;
 using Microsoft.EntityFrameworkCore;
 

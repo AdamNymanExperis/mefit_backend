@@ -9,6 +9,7 @@ using mefit_backend.models;
 using mefit_backend.models.domain;
 using mefit_backend.Service;
 using Microsoft.AspNetCore.Authorization;
+using mefit_backend.Exceptions;
 
 namespace mefit_backend.Controllers
 {
@@ -86,7 +87,7 @@ namespace mefit_backend.Controllers
             {
                 await _userService.UpdateUser(user);
             }
-            catch (CharacterNotFoundException ex)
+            catch (UserNotFoundException ex)
             {
                 return NotFound(new ProblemDetails
                 {
