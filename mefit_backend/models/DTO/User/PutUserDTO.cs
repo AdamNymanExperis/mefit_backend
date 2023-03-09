@@ -1,11 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace mefit_backend.models.domain
+namespace mefit_backend.Models.DTO.User
 {
-    public class User
+    public class PutUserDTO
     {
         public int Id { get; set; }
-        [MaxLength(50)]
+        [MaxLength(25)]
         [Required]
         public string FirstName { get; set; }
         [MaxLength(50)]
@@ -20,8 +20,5 @@ namespace mefit_backend.models.domain
         public bool IsContributor { get; set; }
         [Required]
         public bool IsAdmin { get; set; }
-
-        // relationship 
-        public Profile Profile { get; set; }
     }
 }
