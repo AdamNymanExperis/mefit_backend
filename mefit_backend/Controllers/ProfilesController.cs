@@ -7,44 +7,49 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using mefit_backend.models;
 using mefit_backend.models.domain;
+using mefit_backend.Service;
+using mefit_backend.Services;
+using System.Net.Mime;
+using mefit_backend.Exceptions;
 
 namespace mefit_backend.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/v1")]
     [ApiController]
+    [Produces(MediaTypeNames.Application.Json)]
+    [Consumes(MediaTypeNames.Application.Json)]
+    [ApiConventionType(typeof(DefaultApiConventions))]
+
     public class ProfilesController : ControllerBase
     {
-        private readonly MeFitDbContext _context;
+        private readonly IProfileService _profileService;
 
-        public ProfilesController(MeFitDbContext context)
+        public ProfilesController(IProfileService profileService)
         {
-            _context = context;
-        }
-
-        // GET: api/Profiles
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<Profile>>> GetProfiles()
-        {
-            return await _context.Profiles.ToListAsync();
+            _profileService = profileService;
         }
 
         // GET: api/Profiles/5
-        [HttpGet("{id}")]
+        [HttpGet("profile/{id}")]
         public async Task<ActionResult<Profile>> GetProfile(int id)
         {
-            var profile = await _context.Profiles.FindAsync(id);
-
-            if (profile == null)
+            try
             {
-                return NotFound();
+                //return Ok(_mapper.Map<GetProfileDto>(await _profileService.getProfileById(id)));
+                return Ok(await _profileService.GetProfileById(id));
             }
-
-            return profile;
+            catch (ProfileNotFoundException ex)
+            {
+                return NotFound(new ProblemDetails
+                {
+                    Detail = ex.Message
+                });
+            }
         }
 
         // PUT: api/Profiles/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
+        [HttpPut("profile/{id}")]
         public async Task<IActionResult> PutProfile(int id, Profile profile)
         {
             if (id != profile.Id)
@@ -52,22 +57,17 @@ namespace mefit_backend.Controllers
                 return BadRequest();
             }
 
-            _context.Entry(profile).State = EntityState.Modified;
-
             try
             {
-                await _context.SaveChangesAsync();
+              
+                await _profileService.UpdateProfile(profile);
             }
-            catch (DbUpdateConcurrencyException)
+            catch (ProfileNotFoundException ex)
             {
-                if (!ProfileExists(id))
+                return NotFound(new ProblemDetails
                 {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
+                    Detail = ex.Message
+                });
             }
 
             return NoContent();
@@ -75,34 +75,31 @@ namespace mefit_backend.Controllers
 
         // POST: api/Profiles
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost]
+        [HttpPost("profile")]
         public async Task<ActionResult<Profile>> PostProfile(Profile profile)
         {
-            _context.Profiles.Add(profile);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetProfile", new { id = profile.Id }, profile);
+            await _profileService.CreateProfile(profile);
+            return CreatedAtAction(nameof(GetProfile), new { id = profile.Id }, profile);
         }
 
         // DELETE: api/Profiles/5
-        [HttpDelete("{id}")]
+        [HttpDelete("profile/{id}")]
         public async Task<IActionResult> DeleteProfile(int id)
         {
-            var profile = await _context.Profiles.FindAsync(id);
-            if (profile == null)
+            try
             {
-                return NotFound();
+                await _profileService.DeleteProfile(id);
+            }
+            catch (ProfileNotFoundException ex)
+            {
+                return NotFound(new ProblemDetails
+                {
+                    Detail = ex.Message
+                });
             }
 
-            _context.Profiles.Remove(profile);
-            await _context.SaveChangesAsync();
-
             return NoContent();
-        }
-
-        private bool ProfileExists(int id)
-        {
-            return _context.Profiles.Any(e => e.Id == id);
+ 
         }
     }
 }
