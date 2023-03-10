@@ -14,6 +14,8 @@ namespace mefit_backend.models
         public DbSet<User> Users { get; set; }
         public DbSet<Workout> Workouts { get; set; }
 
+        public DbSet<WorkoutGoal> WorkoutGoals { get; set; }
+        public DbSet<WorkoutExercise> WorkoutExercises { get; set; }
         public MeFitDbContext(DbContextOptions options) : base(options) { }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
