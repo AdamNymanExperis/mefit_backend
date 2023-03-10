@@ -8,8 +8,8 @@
         public bool Complete { get; set; }
 
         //Relationship
-        public ICollection<WorkoutExercise> WorkoutExercise { get; set; }
-        public ICollection<Goal> Goals { get; set; }
+        public ICollection<WorkoutExercise> WorkoutExercises { get; set; }
+        public ICollection<WorkoutGoal> WorkoutGoals { get; set; }
         public ICollection<FitnessProgram> FitnessPrograms { get; set; }
     }
 }

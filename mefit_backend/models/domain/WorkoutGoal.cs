@@ -9,6 +9,6 @@
         public int WorkoutId { get; set; }
         public Workout Workout { get; set; }
         public int GoalId { get; set; }
-        public Exercise Goal { get; set; }
+        public Goal Goal { get; set; }
     }
 }

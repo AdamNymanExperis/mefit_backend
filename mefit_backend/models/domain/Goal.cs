@@ -10,6 +10,6 @@
         public int ProfileId { get; set; }
         public Profile Profile { get; set; }
         public ICollection<FitnessProgram> FitnessPrograms { get; set; }
-        public ICollection<Workout> Workouts { get; set; }
+        public ICollection<WorkoutGoal> WorkoutGoals { get; set; }
     }
 }
