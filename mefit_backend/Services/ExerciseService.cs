@@ -10,7 +10,7 @@ namespace mefit_backend.Service
     {
         private readonly MeFitDbContext _context;
 
-        public ExerciseService(MeFitDbContext context, IMapper mapper)
+        public ExerciseService(MeFitDbContext context)
         {
             _context = context;
         }
