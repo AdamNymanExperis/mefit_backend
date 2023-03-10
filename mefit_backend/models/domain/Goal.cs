@@ -9,7 +9,7 @@
         // relationship 
         public int ProfileId { get; set; }
         public Profile Profile { get; set; }
-        public ICollection<FitnessProgram> FitnessPrograms { get; set; }
+        public ICollection<FitnessProgramGoal> FitnessProgramGoals { get; set; }
         public ICollection<WorkoutGoal> WorkoutGoals { get; set; }
     }
 }

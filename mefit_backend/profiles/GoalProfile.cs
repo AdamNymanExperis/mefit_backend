@@ -11,10 +11,10 @@ namespace mefit_backend.profiles
             CreateMap<PutGoalDTO, Goal>();
             CreateMap<CreateGoalDTO, Goal>();
             CreateMap<Goal , GetGoalDTO>()
-                .ForMember(dto => dto.FitnessPrograms, options =>
-                options.MapFrom(fitnessProgramDomain => fitnessProgramDomain.FitnessPrograms.Select(fitnessProgram => $"api/v1/goal/{fitnessProgram.Id}").ToList()))
-                .ForMember(dto => dto.Workouts, options =>
-                options.MapFrom(workoutDomain => workoutDomain.Workouts.Select(workout => $"api/v1/impairment/{workout.Id}").ToList()));
+                .ForMember(dto => dto.FitnessProgramGoals, options =>
+                options.MapFrom(fitnessProgramDomain => fitnessProgramDomain.FitnessProgramGoals.Select(fitnessProgram => $"api/v1/FitnessProgramGoal/{fitnessProgram.Id}").ToList()))
+                .ForMember(dto => dto.WorkoutGoals, options =>
+                options.MapFrom(workoutDomain => workoutDomain.WorkoutGoals.Select(workout => $"api/v1/WorkoutGoal/{workout.Id}").ToList()));
         }
     }
 }

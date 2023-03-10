@@ -22,6 +22,6 @@ namespace mefit_backend.models.domain
         public bool IsAdmin { get; set; }
 
         // relationship 
-        public Profile Profile { get; set; }
+        //public Profile Profile { get; set; }
     }
 }

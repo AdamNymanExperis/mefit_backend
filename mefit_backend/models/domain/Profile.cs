@@ -7,9 +7,10 @@
         public int Height { get; set; }
 
         // relationships
-        public int UserId { get; set; }
-        public User User { get; set; }
+        //public int UserId { get; set; }
+        //public User User { get; set; }
 
+        public string keycloakId { get; set; }
         public int AddressId { get; set; }
         public Address Address { get; set; }
 

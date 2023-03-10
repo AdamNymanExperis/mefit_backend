@@ -13,9 +13,10 @@ namespace mefit_backend.models
         public DbSet<Profile> Profiles { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<Workout> Workouts { get; set; }
-
         public DbSet<WorkoutGoal> WorkoutGoals { get; set; }
         public DbSet<WorkoutExercise> WorkoutExercises { get; set; }
+
+        public DbSet<FitnessProgramGoal> FitnessProgramGoals  { get; set; }
         public MeFitDbContext(DbContextOptions options) : base(options) { }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -39,7 +40,7 @@ namespace mefit_backend.models
 
             modelBuilder.Entity<Impairment>().HasData(new Impairment { Id = 1, Description = "Cannot use legs", Name = "I have no legs" });
 
-            modelBuilder.Entity<Profile>().HasData(new Profile { Id = 1, AddressId = 1, UserId = 1, Height = 180, Weight = 80 });
+            modelBuilder.Entity<Profile>().HasData(new Profile { Id = 1, AddressId = 1, keycloakId = "1", Height = 180, Weight = 80 });
 
             modelBuilder.Entity<User>().HasData(new User { Id = 1, Email = "Test@test.com", FirstName = "Urban", LastName = "Svensson", Password = "password", IsAdmin = true, IsContributor = true});
 
@@ -48,34 +49,8 @@ namespace mefit_backend.models
             modelBuilder.Entity<WorkoutExercise>().HasData(new WorkoutExercise { Id = 1, ExerciseId = 1, WorkoutId = 1, Set = 5, Repetition = 3 });
 
             modelBuilder.Entity<WorkoutGoal>().HasData(new WorkoutGoal { Id = 1, GoalId = 1, WorkoutId = 1, EndDate = new DateTime() });
-            /*
-            modelBuilder.Entity<Goal>()
-                .HasMany(goal => goal.Workouts)
-                .WithMany(workouts => workouts.Goals)
-                .UsingEntity<Dictionary<string, object>>(
-                    "WorkoutGoal",
-                    r => r.HasOne<Workout>().WithMany().HasForeignKey("WorkoutId"),
-                    l => l.HasOne<Goal>().WithMany().HasForeignKey("GoalId"),
-                    je => 
-                    {
-                        je.HasKey("WorkoutId", "GoalId");
-                        je.HasData(new { WorkoutId = 1, GoalId = 1, EndDate = new DateTime() });
-                    }
-                );*/
 
-            modelBuilder.Entity<Goal>()
-                .HasMany(goal => goal.FitnessPrograms)
-                .WithMany(fitnessprogram => fitnessprogram.Goals)
-                .UsingEntity<Dictionary<string, object>>(
-                    "FitnessProgramGoal",
-                    r => r.HasOne<FitnessProgram>().WithMany().HasForeignKey("FitnessProgramId"),
-                    l => l.HasOne<Goal>().WithMany().HasForeignKey("GoalId"),
-                    je =>
-                    {
-                        je.HasKey("FitnessProgramId", "GoalId");
-                        je.HasData(new { FitnessProgramId = 1, GoalId = 1});
-                    }
-                );
+            modelBuilder.Entity<FitnessProgramGoal>().HasData(new FitnessProgramGoal { Id = 1, GoalId = 1, FitnessProgramId = 1, EndDate = new DateTime() });
 
             modelBuilder.Entity<Impairment>()
                 .HasMany(impairment => impairment.Profiles)

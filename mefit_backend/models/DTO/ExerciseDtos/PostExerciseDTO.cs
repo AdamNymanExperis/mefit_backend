@@ -1,4 +1,4 @@
-﻿namespace mefit_backend.models.DTO
+﻿namespace mefit_backend.models.DTO.ExerciseDtos
 {
     public class PostExerciseDTO
     {

@@ -35,7 +35,7 @@ namespace mefit_backend.Services
 
         public async Task<Goal> GetGoalById(int id)
         {
-            var goal = await _context.Goals.Include(x => x.FitnessPrograms).Include(x => x.Workouts).FirstOrDefaultAsync(x => x.Id == id);
+            var goal = await _context.Goals.Include(x => x.FitnessProgramGoals).Include(x => x.WorkoutGoals).FirstOrDefaultAsync(x => x.Id == id);
             if (goal == null)
             {
                 throw new GoalNotFoundException(id);

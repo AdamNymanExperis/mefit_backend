@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using mefit_backend.models.domain;
-using mefit_backend.models.DTO;
+using mefit_backend.models.DTO.ExerciseDtos;
 
 namespace mefit_backend.Profiles
 {

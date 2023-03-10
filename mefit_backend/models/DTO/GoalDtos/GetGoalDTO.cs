@@ -10,7 +10,7 @@ namespace mefit_backend.Models.DTO.Goal
 
         // relationship 
         public int ProfileId { get; set; }
-        public List<string> FitnessPrograms { get; set; }
-        public List<string> Workouts { get; set; }
+        public List<string> FitnessProgramGoals { get; set; }
+        public List<string> WorkoutGoals { get; set; }
     }
 }

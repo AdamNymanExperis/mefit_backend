@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using mefit_backend.models;
 
@@ -11,9 +12,11 @@ using mefit_backend.models;
 namespace mefit_backend.Migrations
 {
     [DbContext(typeof(MeFitDbContext))]
-    partial class MeFitDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230310090357_updatedGoalAndConnectionTables")]
+    partial class updatedGoalAndConnectionTables
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -310,16 +313,18 @@ namespace mefit_backend.Migrations
                     b.Property<int>("Height")
                         .HasColumnType("int");
 
-                    b.Property<int>("Weight")
+                    b.Property<int>("UserId")
                         .HasColumnType("int");
 
-                    b.Property<string>("keycloakId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("Weight")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("AddressId")
+                        .IsUnique();
+
+                    b.HasIndex("UserId")
                         .IsUnique();
 
                     b.ToTable("Profiles");
@@ -330,8 +335,8 @@ namespace mefit_backend.Migrations
                             Id = 1,
                             AddressId = 1,
                             Height = 180,
-                            Weight = 80,
-                            keycloakId = "1"
+                            UserId = 1,
+                            Weight = 80
                         });
                 });
 
@@ -575,7 +580,15 @@ namespace mefit_backend.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("mefit_backend.models.domain.User", "User")
+                        .WithOne("Profile")
+                        .HasForeignKey("mefit_backend.models.domain.Profile", "UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Address");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("mefit_backend.models.domain.WorkoutExercise", b =>
@@ -642,6 +655,12 @@ namespace mefit_backend.Migrations
             modelBuilder.Entity("mefit_backend.models.domain.Profile", b =>
                 {
                     b.Navigation("Goals");
+                });
+
+            modelBuilder.Entity("mefit_backend.models.domain.User", b =>
+                {
+                    b.Navigation("Profile")
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("mefit_backend.models.domain.Workout", b =>
