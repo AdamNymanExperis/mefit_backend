@@ -10,5 +10,7 @@ namespace mefit_backend.Service
         public Task<Exercise> CreateExercise(Exercise exercise);
         public Task<Exercise> UpdateExercise(Exercise exercise);
         public Task DeleteExercise(int id);
+
+        public Task UpdateImpairmentsInExercise(int[] impairmentIds, int exerciseId);
     }
 }
