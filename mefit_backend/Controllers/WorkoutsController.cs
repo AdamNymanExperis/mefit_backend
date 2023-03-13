@@ -18,12 +18,11 @@ namespace mefit_backend.Controllers
     [ApiController]
     public class WorkoutsController : ControllerBase
     {
-        private readonly MeFitDbContext _context;
-
+       
         private readonly IWorkoutService _workoutService;
         private readonly IMapper _mapper;
 
-        public WorkoutsController(IWorkoutService workoutService, IMapper mapper )
+        public WorkoutsController(IWorkoutService workoutService, IMapper mapper)
         {
             _workoutService = workoutService;
             _mapper = mapper;
