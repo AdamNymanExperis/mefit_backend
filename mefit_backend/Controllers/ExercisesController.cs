@@ -11,11 +11,16 @@ using mefit_backend.Service;
 using mefit_backend.Exceptions;
 using AutoMapper;
 using mefit_backend.models.DTO.ExerciseDtos;
+using System.Net.Mime;
 
 namespace mefit_backend.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/v1")]
     [ApiController]
+    [Produces(MediaTypeNames.Application.Json)]
+    [Consumes(MediaTypeNames.Application.Json)]
+    [ApiConventionType(typeof(DefaultApiConventions))]
+
     public class ExercisesController : ControllerBase
     {
         private readonly IExerciseService _exerciseService;
@@ -28,7 +33,7 @@ namespace mefit_backend.Controllers
         }
 
         // GET: api/Exercises
-        [HttpGet]
+        [HttpGet("exercise")]
         public async Task<ActionResult<IEnumerable<GetExerciseDTO>>> GetExercises()
         {
             //return Ok(await _exerciseService.GetExercises());
@@ -36,7 +41,7 @@ namespace mefit_backend.Controllers
         }
 
         // GET: api/Exercises/5
-        [HttpGet("{id}")]
+        [HttpGet("exercise/{id}")]
         public async Task<ActionResult<Exercise>> GetExercise(int id)
         {
             try
@@ -54,7 +59,7 @@ namespace mefit_backend.Controllers
 
         // PUT: api/Exercises/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
+        [HttpPut("exercise/{id}")]
         public async Task<IActionResult> PutExercise(int id, PutExerciseDTO exerciseDTO)
         {
             Exercise exercise = _mapper.Map<Exercise>(exerciseDTO);
@@ -81,7 +86,7 @@ namespace mefit_backend.Controllers
 
         // POST: api/Exercises
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost]
+        [HttpPost("exercise")]
         public async Task<ActionResult<Exercise>> PostExercise(PostExerciseDTO exerciseDTO)
         {
             var exercise = _mapper.Map<Exercise>(exerciseDTO);
@@ -92,7 +97,7 @@ namespace mefit_backend.Controllers
         }
 
         // DELETE: api/Exercises/5
-        [HttpDelete("{id}")]
+        [HttpDelete("exercise/{id}")]
         public async Task<IActionResult> DeleteExercise(int id)
         {
             try
@@ -110,9 +115,22 @@ namespace mefit_backend.Controllers
             return NoContent();
         }
 
-        //private bool ExerciseExists(int id)
-        //{
-        //    return _context.Exercises.Any(e => e.Id == id);
-        //}
+        [HttpPut("exercise/{exerciseId}/impairments")]
+        public async Task<IActionResult> PutImpairmentsInPorfile(int[] impairmentIds, int exerciseId)
+        {
+            try
+            {
+                await _exerciseService.UpdateImpairmentsInExercise(impairmentIds, exerciseId);
+                return NoContent();
+            }
+            catch (ExerciseNotFoundException ex)
+            {
+                return NotFound(
+                    new ProblemDetails()
+                    {
+                        Detail = ex.Message
+                    });
+            }
+        }
     }
 }

@@ -8,5 +8,6 @@ namespace mefit_backend.Services
         public Task<Profile> CreateProfile(Profile profile);
         public Task<Profile> UpdateProfile(Profile profile);
         public Task DeleteProfile(int id);
+        public Task UpdateImpairmentsInProfile(int[] impairmentIds, int profileId);
     }
 }

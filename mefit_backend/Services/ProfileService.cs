@@ -43,6 +43,28 @@ namespace mefit_backend.Services
             return profile;
         }
 
+        public async Task UpdateImpairmentsInProfile(int[] impairmentIds, int profileId)
+        {
+            var checkProfile = await _context.Profiles.FindAsync(profileId);
+            if (checkProfile == null)
+                throw new ProfileNotFoundException(profileId);
+
+            List<Impairment> impairments = impairmentIds
+                .ToList()
+                .Select(x => _context.Impairments
+                .Where(s => s.Id == x).First())
+                .ToList();
+          
+            Profile profile = await _context.Profiles
+                .Where(x => x.Id == profileId)
+                .FirstAsync();
+          
+            profile.Impairments = impairments;
+            _context.Entry(profile).State = EntityState.Modified;
+     
+            await _context.SaveChangesAsync();
+        }
+
         public async Task<Profile> UpdateProfile(Profile profile)
         {
             var foundProfile = await _context.Profiles.AnyAsync(x => x.Id == profile.Id);
@@ -54,5 +76,7 @@ namespace mefit_backend.Services
             await _context.SaveChangesAsync();
             return profile;
         }
+
+
     }
 }

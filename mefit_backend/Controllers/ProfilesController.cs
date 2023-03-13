@@ -96,5 +96,24 @@ namespace mefit_backend.Controllers
             return NoContent();
  
         }
+
+        [HttpPut("profile/{profileId}/impairments")]
+        public async Task<IActionResult> PutImpairmentsInPorfile(int[] impairmentIds, int profileId)
+        {
+            try
+            {
+                await _profileService.UpdateImpairmentsInProfile(impairmentIds, profileId);
+                return NoContent();
+            }
+            catch (ProfileNotFoundException ex)
+            {
+                return NotFound(
+                    new ProblemDetails()
+                    {
+                        Detail = ex.Message
+                    }
+                    );
+            }
+        }
     }
 }
