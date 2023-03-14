@@ -33,7 +33,8 @@ namespace mefit_backend.Controllers
         }
 
         // GET: api/Exercises
-        [HttpGet("exercise")]
+        [HttpGet("exercises")]
+
         public async Task<ActionResult<IEnumerable<GetExerciseDTO>>> GetExercises()
         {
             //return Ok(await _exerciseService.GetExercises());
