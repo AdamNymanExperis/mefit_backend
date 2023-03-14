@@ -14,7 +14,7 @@ using mefit_backend.Models.DTO.WorkoutDtos;
 
 namespace mefit_backend.Controllers
 {
-    [Route("api/v1/")]
+    [Route("api/v1")]
     [ApiController]
     public class WorkoutsController : ControllerBase
     {
@@ -29,7 +29,7 @@ namespace mefit_backend.Controllers
         }
 
         // GET: api/Workouts/5
-        [HttpGet("Workout/{id}")]
+        [HttpGet("workout/{id}")]
         public async Task<ActionResult<GetWorkoutDTO>> GetWorkout(int id)
         {
             try
@@ -47,7 +47,7 @@ namespace mefit_backend.Controllers
 
         // POST: api/Workouts
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost("Workout")]
+        [HttpPost("workout")]
         public async Task<ActionResult<Workout>> PostWorkout(AddWorkoutDTO addWorkoutDto)
         {
             var workout = _mapper.Map<Workout>(addWorkoutDto);
@@ -56,7 +56,7 @@ namespace mefit_backend.Controllers
         }
 
         // DELETE: api/Workouts/5
-        [HttpDelete("Workout/{id}")]
+        [HttpDelete("workout/{id}")]
         public async Task<IActionResult> DeleteWorkout(int id)
         {
             try
@@ -76,7 +76,7 @@ namespace mefit_backend.Controllers
 
         // PUT: api/Workouts/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("Workout/{id}")]
+        [HttpPut("workout/{id}")]
         public async Task<IActionResult> PutWorkout(int id, PutWorkoutDTO putWorkoutDTO)
         {
             if (id != putWorkoutDTO.Id)
@@ -100,7 +100,7 @@ namespace mefit_backend.Controllers
             return NoContent();
         }
 
-        [HttpPut("Workout/{workoutId}/exercise")]
+        [HttpPut("workout/{workoutId}/exercise")]
         public async Task<IActionResult> PutWorkoutExercisesInWorkout(int[] workoutExercisesIds, int workoutId)
         {
             try

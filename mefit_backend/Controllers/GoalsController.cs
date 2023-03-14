@@ -35,7 +35,7 @@ namespace mefit_backend.Controllers
 
 
         // GET: api/Goals/5
-        [HttpGet("Goal/{id}")]
+        [HttpGet("goal/{id}")]
         public async Task<ActionResult<GetGoalDTO>> GetGoal(int id)
         {
             try
@@ -53,7 +53,7 @@ namespace mefit_backend.Controllers
 
         // PUT: api/Goals/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("Goal/{id}")]
+        [HttpPut("goal/{id}")]
         public async Task<IActionResult> PutGoal(int id, PutGoalDTO putGoalDTO)
         {
             if (id != putGoalDTO.Id)
@@ -77,7 +77,7 @@ namespace mefit_backend.Controllers
         }
         // POST: api/Goals
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost("Goal")]
+        [HttpPost("goal")]
         public async Task<ActionResult<Goal>> PostGoal(CreateGoalDTO createGoalDTO)
         {
             var goal = _mapper.Map<Goal>(createGoalDTO);
@@ -86,7 +86,7 @@ namespace mefit_backend.Controllers
         }
 
         // DELETE: api/Goals/5
-        [HttpDelete("Goal/{id}")]
+        [HttpDelete("goal/{id}")]
         public async Task<IActionResult> DeleteGoal(int id)
         {
             try

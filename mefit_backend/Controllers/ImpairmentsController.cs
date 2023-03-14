@@ -15,7 +15,7 @@ using mefit_backend.Exceptions;
 
 namespace mefit_backend.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/v1")]
     [ApiController]
     public class ImpairmentsController : ControllerBase
     {
@@ -29,14 +29,14 @@ namespace mefit_backend.Controllers
         }
 
         // GET: api/Impairments
-        [HttpGet]
+        [HttpGet("impairments")]
         public async Task<ActionResult<IEnumerable<GetImpairmentDTO>>> GetImpairments()
         {
             return Ok(_mapper.Map<IEnumerable<GetImpairmentDTO>>(await _impairmentService.GetImpairments()));
         }
 
         // GET: api/Impairments/5
-        [HttpGet("{id}")]
+        [HttpGet("impairment/{id}")]
         public async Task<ActionResult<GetImpairmentDTO>> GetImpairment(int id)
         {
             try
@@ -54,7 +54,7 @@ namespace mefit_backend.Controllers
 
         // PUT: api/Impairments/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
+        [HttpPut("impairment/{id}")]
         public async Task<IActionResult> PutImpairment(int id, PutImpairmentDTO putImpairmentDTO)
         {
             Impairment impairment = _mapper.Map<Impairment>(putImpairmentDTO);
@@ -81,7 +81,7 @@ namespace mefit_backend.Controllers
 
         // POST: api/Impairments
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost]
+        [HttpPost("impairment")]
         public async Task<ActionResult<Impairment>> PostImpairment(PostImpairmentDTO impairmentDTO)
         {
             var impairment = _mapper.Map<Impairment>(impairmentDTO);
@@ -92,7 +92,7 @@ namespace mefit_backend.Controllers
         }
 
         // DELETE: api/Impairments/5
-        [HttpDelete("{id}")]
+        [HttpDelete("impairment/{id}")]
         public async Task<IActionResult> DeleteImpairment(int id)
         {
             try

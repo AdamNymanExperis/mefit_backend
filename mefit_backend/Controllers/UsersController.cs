@@ -15,7 +15,7 @@ using mefit_backend.Models.DTO.User;
 
 namespace mefit_backend.Controllers
 {
-    [Route("api/v1/")]
+    [Route("api/v1")]
     [ApiController]
     public class UsersController : ControllerBase
     {
@@ -33,7 +33,7 @@ namespace mefit_backend.Controllers
 
         // GET: api/Users/5
         //[Authorize]//(Roles = "USER")]
-        [HttpGet("User/{id}")]
+        [HttpGet("user/{id}")]
         public async Task<ActionResult<GetUserDTO>> GetUser(int id)
         {
             try
@@ -51,7 +51,7 @@ namespace mefit_backend.Controllers
 
         // POST: api/Users
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost("User")]
+        [HttpPost("user")]
         public async Task<ActionResult<User>> PostUser(AddUserDTO addUserDTO)
         {
             var user = _mapper.Map<User>(addUserDTO);
@@ -60,7 +60,7 @@ namespace mefit_backend.Controllers
         }
 
         // DELETE: api/Users/5
-        [HttpDelete("User/{id}")]
+        [HttpDelete("user/{id}")]
         public async Task<IActionResult> DeleteUser(int id)
         {
             try
@@ -81,7 +81,7 @@ namespace mefit_backend.Controllers
         
        // PUT: api/Users/5
        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-       [HttpPut("User/{id}")]
+       [HttpPut("user/{id}")]
        public async Task<IActionResult> PutUser(int id, PutUserDTO putUserDTO)
        {
             if (id != putUserDTO.Id)
@@ -107,7 +107,7 @@ namespace mefit_backend.Controllers
 
         // POST: api/User/5/update_password
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost("User/{id}/update_password")]
+        [HttpPost("user/{id}/update_password")]
         public async Task<ActionResult<User>> PostUserPassword(int id, string password)
         {
             //var password = _mapper.Map<User>(passwordDTO);
