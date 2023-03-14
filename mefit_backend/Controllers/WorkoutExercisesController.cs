@@ -77,7 +77,7 @@ namespace mefit_backend.Controllers
 
         // POST: api/WorkoutExercises
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost]
+        [HttpPost ("workoutexercise")]
         public async Task<ActionResult<WorkoutExercise>> PostWorkoutExercise(PostWorkoutExerciseDTO postWorkoutExerciseDTO)
         {
             var workoutExercise = _mapper.Map<WorkoutExercise>(postWorkoutExerciseDTO);
