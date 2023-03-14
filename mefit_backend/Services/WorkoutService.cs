@@ -55,5 +55,27 @@ namespace mefit_backend.Services
             await _context.SaveChangesAsync();
             return workout;
         }
+
+        public async Task UpdateWorkoutExercisesInWorkout(int[] workoutExercisesIds, int workoutId)
+        {
+            var checkWorkout = await _context.Workouts.FindAsync(workoutId);
+            if (checkWorkout == null)
+                throw new WorkoutNotFoundException(workoutId);
+
+            List<WorkoutExercise> workoutExercises = workoutExercisesIds
+                .ToList()
+                .Select(x => _context.WorkoutExercises
+                .Where(s => s.Id == x).First())
+                .ToList();
+
+            Workout workout = await _context.Workouts
+                .Where(x => x.Id == workoutId)
+                .FirstAsync();
+
+            workout.WorkoutExercises = workoutExercises;
+            _context.Entry(workout).State = EntityState.Modified;
+
+            await _context.SaveChangesAsync();
+        }
     }
 }

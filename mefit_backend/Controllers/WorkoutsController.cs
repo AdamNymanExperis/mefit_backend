@@ -99,5 +99,25 @@ namespace mefit_backend.Controllers
 
             return NoContent();
         }
+
+        [HttpPut("Workout/{workoutId}/exercise")]
+        public async Task<IActionResult> PutWorkoutExercisesInWorkout(int[] workoutExercisesIds, int workoutId)
+        {
+            try
+            {
+                await _workoutService.UpdateWorkoutExercisesInWorkout(workoutExercisesIds, workoutId);
+                return NoContent();
+            }
+            catch (ProfileNotFoundException ex)
+            {
+                return NotFound(
+                    new ProblemDetails()
+                    {
+                        Detail = ex.Message
+                    }
+                    );
+            }
+        }
+
     }
 }

@@ -8,5 +8,7 @@ namespace mefit_backend.Services
         Task<Workout> AddWorkout(Workout workout);
         Task DeleteWorkout(int id);
         Task<Workout> UpdateWorkout(Workout workout);
+
+        public Task UpdateWorkoutExercisesInWorkout(int[] workoutExercisesIds, int workoutId);
     }
 }
