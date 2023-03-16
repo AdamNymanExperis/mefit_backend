@@ -36,7 +36,7 @@ namespace mefit_backend.models
 
             modelBuilder.Entity<FitnessProgram>().HasData(new FitnessProgram { Id = 1, Name = "Program 1", Category = "Upper body" });
 
-            modelBuilder.Entity<Goal>().HasData(new Goal {Id = 1, Achieved = false, EndDate = new DateTime(), ProfileId = 1});
+            modelBuilder.Entity<Goal>().HasData(new Goal {Id = 1, Achieved = false, StartDate = new DateTime(), EndDate = new DateTime(), ProfileId = 1});
 
             modelBuilder.Entity<Impairment>().HasData(new Impairment { Id = 1, Description = "Cannot use legs", Name = "I have no legs" });
 
@@ -48,9 +48,9 @@ namespace mefit_backend.models
 
             modelBuilder.Entity<WorkoutExercise>().HasData(new WorkoutExercise { Id = 1, ExerciseId = 1, WorkoutId = 1, Set = 5, Repetition = 3 });
 
-            modelBuilder.Entity<WorkoutGoal>().HasData(new WorkoutGoal { Id = 1, GoalId = 1, WorkoutId = 1, EndDate = new DateTime() });
+            modelBuilder.Entity<WorkoutGoal>().HasData(new WorkoutGoal { Id = 1, GoalId = 1, WorkoutId = 1, StartDate = new DateTime(), EndDate = new DateTime() });
 
-            modelBuilder.Entity<FitnessProgramGoal>().HasData(new FitnessProgramGoal { Id = 1, GoalId = 1, FitnessProgramId = 1, EndDate = new DateTime() });
+            modelBuilder.Entity<FitnessProgramGoal>().HasData(new FitnessProgramGoal { Id = 1, GoalId = 1, FitnessProgramId = 1, StartDate = new DateTime(), EndDate = new DateTime() });
 
             modelBuilder.Entity<Impairment>()
                 .HasMany(impairment => impairment.Profiles)
