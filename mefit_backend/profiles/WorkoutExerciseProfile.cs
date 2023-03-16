@@ -13,9 +13,11 @@ namespace mefit_backend.profiles
             CreateMap<PutWorkoutExerciseDTO, WorkoutExercise>();
             CreateMap<WorkoutExercise, GetWorkoutExerciseDTO>()
                 .ForMember(dto => dto.Exercise, options =>
-                options.MapFrom(exerciseDomain => $"api/v1/exercise/{exerciseDomain.ExerciseId}"));
+                options.MapFrom(exerciseDomain => $"api/v1/exercise/{exerciseDomain.ExerciseId}"))
+                .ForMember(dto => dto.Workout, options =>
+                options.MapFrom(workoutDomain => $"api/v1/workout/{workoutDomain.WorkoutId}"));
 
         }
-        
+
     }
 }
