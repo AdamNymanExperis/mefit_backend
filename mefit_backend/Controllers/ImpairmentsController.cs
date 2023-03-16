@@ -10,8 +10,8 @@ using mefit_backend.models.domain;
 using AutoMapper;
 using mefit_backend.Service;
 using mefit_backend.Services;
-using mefit_backend.models.DTO;
 using mefit_backend.Exceptions;
+using mefit_backend.models.DTO.ImpairmentDtos;
 
 namespace mefit_backend.Controllers
 {

@@ -13,8 +13,6 @@ namespace mefit_backend.Profiles
             CreateMap<PutUserDTO, User>();
             CreateMap<User, GetUserDTO>();
             CreateMap<PasswordDTO, User>();
-            //.ForMember(dto => dto.Profile, options =>
-            //options.MapFrom(userDomain => $"api/v1/profile/{userDomain.Profile}"));
         }
     }
 }

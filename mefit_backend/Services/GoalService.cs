@@ -43,6 +43,16 @@ namespace mefit_backend.Services
             return goal;
         }
 
+        public async Task<IEnumerable<Goal>> GetGoalsByProfileId(int profileId)
+        {
+            var profile = await _context.Profiles.Include(x => x.Goals).FirstOrDefaultAsync(x => x.Id == profileId);
+            if (profile == null) 
+            {
+                throw new ProfileNotFoundException(profileId);
+            }
+            return profile.Goals; 
+        }
+
         public async Task<Goal> UpdateGoal(Goal goal)
         {
             var foundGoal = await _context.Goals.AnyAsync(x => x.Id == goal.Id);

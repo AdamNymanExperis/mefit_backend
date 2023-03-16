@@ -1,6 +1,6 @@
-﻿namespace mefit_backend.models.DTO
+﻿namespace mefit_backend.models.DTO.ImpairmentDtos
 {
-    public class GetImpairmentDTO
+    public class PutImpairmentDTO
     {
         public int Id { get; set; }
         public string Name { get; set; }

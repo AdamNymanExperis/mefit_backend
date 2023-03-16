@@ -40,7 +40,7 @@ namespace mefit_backend.models
 
             modelBuilder.Entity<Impairment>().HasData(new Impairment { Id = 1, Description = "Cannot use legs", Name = "I have no legs" });
 
-            modelBuilder.Entity<Profile>().HasData(new Profile { Id = 1, AddressId = 1, keycloakId = "1", Height = 180, Weight = 80 });
+            modelBuilder.Entity<Profile>().HasData(new Profile { Id = 1, keycloakId = "1", Height = 180, Weight = 80 });
 
             modelBuilder.Entity<User>().HasData(new User { Id = 1, Email = "Test@test.com", FirstName = "Urban", LastName = "Svensson", Password = "password", IsAdmin = true, IsContributor = true});
 

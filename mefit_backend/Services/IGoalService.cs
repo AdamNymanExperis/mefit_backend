@@ -8,5 +8,7 @@ namespace mefit_backend.Services
         public Task<Goal> CreateGoal(Goal goal);
         public Task<Goal> UpdateGoal(Goal goal);
         public Task DeleteGoal(int id);
+
+        public Task<IEnumerable<Goal>> GetGoalsByProfileId(int profileId);
     }
 }

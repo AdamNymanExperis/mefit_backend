@@ -12,7 +12,7 @@ namespace mefit_backend.Models.DTO.ProfileDtos
 
         // relationships
         //public int UserId { get; set; }
-        public int AddressId { get; set; }
+        //public int AddressId { get; set; }
         public List<string> Goals { get; set; }
         public List<string> Impairments { get; set; }
     }

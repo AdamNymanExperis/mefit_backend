@@ -1,5 +1,5 @@
 ﻿using mefit_backend.models.domain;
-using mefit_backend.models.DTO;
+using mefit_backend.models.DTO.ImpairmentDtos;
 using Microsoft.Extensions.Options;
 
 namespace mefit_backend.Profiles

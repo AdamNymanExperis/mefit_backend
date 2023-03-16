@@ -103,5 +103,20 @@ namespace mefit_backend.Controllers
 
             return NoContent();
         }
+
+        [HttpGet("goals/profile/{id}")]
+        public async Task<ActionResult<IEnumerable<Goal>>> GetGoalsByProfileId(int id) 
+        {
+            try 
+            {
+                return Ok(_mapper.Map<IEnumerable<GetGoalDTO>>(await _goalService.GetGoalsByProfileId(id)));
+            } catch (GoalNotFoundException ex)
+            {
+                return NotFound(new ProblemDetails
+                {
+                    Detail = ex.Message
+                });
+            }
+        }
     }
 }
