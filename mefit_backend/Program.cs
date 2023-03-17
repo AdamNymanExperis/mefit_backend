@@ -61,6 +61,7 @@ builder.Services.AddTransient<IGoalService, GoalService>();
 builder.Services.AddTransient<IFitnessProgramService, FitnessProgramService>();
 builder.Services.AddTransient<IWorkoutExerciseService, WorkoutExerciseService>();
 builder.Services.AddTransient<IWorkoutGoalService, WorkoutGoalService>();
+builder.Services.AddTransient<IFitnessProgramGoalService, FitnessProgramGoalService>();
 
 var app = builder.Build();
 
