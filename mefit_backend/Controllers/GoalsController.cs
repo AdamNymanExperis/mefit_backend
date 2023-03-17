@@ -105,7 +105,7 @@ namespace mefit_backend.Controllers
         }
 
         [HttpGet("goals/profile/{id}")]
-        public async Task<ActionResult<IEnumerable<Goal>>> GetGoalsByProfileId(int id) 
+        public async Task<ActionResult<IEnumerable<Goal>>> GetGoalsByProfileId(string id) 
         {
             try 
             {

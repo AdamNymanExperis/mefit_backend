@@ -2,7 +2,7 @@
 {
     public class ProfileNotFoundException : Exception
     {
-        public ProfileNotFoundException(int id) : base($"Profile with id {id} was not found")
+        public ProfileNotFoundException(string id) : base($"Profile with id {id} was not found")
         {
 
         }

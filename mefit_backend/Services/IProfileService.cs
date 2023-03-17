@@ -4,10 +4,10 @@ namespace mefit_backend.Services
 {
     public interface IProfileService
     {
-        public Task<Profile> GetProfileById(int id);
+        public Task<Profile> GetProfileById(string id);
         public Task<Profile> CreateProfile(Profile profile);
         public Task<Profile> UpdateProfile(Profile profile);
-        public Task DeleteProfile(int id);
-        public Task UpdateImpairmentsInProfile(int[] impairmentIds, int profileId);
+        public Task DeleteProfile(string id);
+        public Task UpdateImpairmentsInProfile(int[] impairmentIds, string profileId);
     }
 }

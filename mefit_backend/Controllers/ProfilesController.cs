@@ -26,7 +26,7 @@ namespace mefit_backend.Controllers
 
         // GET: api/Profiles/5
         [HttpGet("profile/{id}")]
-        public async Task<ActionResult<GetProfileDTO>> GetProfile(int id)
+        public async Task<ActionResult<GetProfileDTO>> GetProfile(string id)
         {
             try
             {
@@ -79,7 +79,7 @@ namespace mefit_backend.Controllers
 
         // DELETE: api/Profiles/5
         [HttpDelete("profile/{id}")]
-        public async Task<IActionResult> DeleteProfile(int id)
+        public async Task<IActionResult> DeleteProfile(string id)
         {
             try
             {
@@ -98,7 +98,7 @@ namespace mefit_backend.Controllers
         }
 
         [HttpPut("profile/{profileId}/impairments")]
-        public async Task<IActionResult> PutImpairmentsInPorfile(int[] impairmentIds, int profileId)
+        public async Task<IActionResult> PutImpairmentsInPorfile(int[] impairmentIds, string profileId)
         {
             try
             {

@@ -49,7 +49,7 @@ namespace mefit_backend.Services
             var foundWorkoutGoal = await _context.WorkoutGoals.AnyAsync(x => x.Id == workoutGoal.Id);
             if (!foundWorkoutGoal)
             {
-                throw new ProfileNotFoundException(workoutGoal.Id);
+                throw new WorkoutGoalNotFoundException(workoutGoal.Id);
             }
             _context.Entry(workoutGoal).State = EntityState.Modified;
             await _context.SaveChangesAsync();

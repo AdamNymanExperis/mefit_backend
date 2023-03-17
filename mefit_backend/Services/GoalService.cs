@@ -27,7 +27,7 @@ namespace mefit_backend.Services
             var goal = await _context.Goals.FindAsync(id);
             if (goal == null)
             {
-                throw new ProfileNotFoundException(id);
+                throw new GoalNotFoundException(id);
             }
             _context.Goals.Remove(goal);
             await _context.SaveChangesAsync();
@@ -43,9 +43,9 @@ namespace mefit_backend.Services
             return goal;
         }
 
-        public async Task<IEnumerable<Goal>> GetGoalsByProfileId(int profileId)
+        public async Task<IEnumerable<Goal>> GetGoalsByProfileId(string profileId)
         {
-            var profile = await _context.Profiles.Include(x => x.Goals).FirstOrDefaultAsync(x => x.Id == profileId);
+            var profile = await _context.Profiles.Include(x => x.Goals).FirstOrDefaultAsync(x => x.keycloakId == profileId);
             if (profile == null) 
             {
                 throw new ProfileNotFoundException(profileId);
@@ -58,7 +58,7 @@ namespace mefit_backend.Services
             var foundGoal = await _context.Goals.AnyAsync(x => x.Id == goal.Id);
             if (!foundGoal)
             {
-                throw new ProfileNotFoundException(goal.Id);
+                throw new GoalNotFoundException(goal.Id);
             }
             _context.Entry(goal).State = EntityState.Modified;
             await _context.SaveChangesAsync();
