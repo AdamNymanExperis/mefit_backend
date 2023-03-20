@@ -3,8 +3,8 @@
     public class WorkoutGoal
     {
         public int Id { get; set; }
-        public DateTime StartDate { get; set; }
-        public DateTime EndDate { get; set; }
+        public DateTime start { get; set; }
+        public DateTime end { get; set; }
 
         // relationship
         public int WorkoutId { get; set; }

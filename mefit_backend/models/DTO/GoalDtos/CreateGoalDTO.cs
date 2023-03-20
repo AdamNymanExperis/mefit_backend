@@ -2,8 +2,9 @@
 {
     public class CreateGoalDTO
     {
-        public DateTime StartDate { get; set; }
-        public DateTime EndDate { get; set; }
+        public string title { get; set; }
+        public DateTime start { get; set; }
+        public DateTime end { get; set; }
         public bool Achieved { get; set; }
 
         // relationship 
