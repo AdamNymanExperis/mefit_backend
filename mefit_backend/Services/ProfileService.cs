@@ -45,7 +45,7 @@ namespace mefit_backend.Services
 
         public async Task UpdateImpairmentsInProfile(int[] impairmentIds, string profileId)
         {
-            var checkProfile = await _context.Profiles.FindAsync(profileId);
+            var checkProfile = await _context.Profiles.FirstOrDefaultAsync(x => x.keycloakId == profileId);
             if (checkProfile == null)
                 throw new ProfileNotFoundException(profileId);
 
