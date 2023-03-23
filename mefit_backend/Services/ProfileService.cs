@@ -56,12 +56,13 @@ namespace mefit_backend.Services
                 .ToList();
           
             Profile profile = await _context.Profiles
+                .Include(x => x.Impairments)
                 .Where(x => x.keycloakId == profileId)
                 .FirstAsync();
-          
+
             profile.Impairments = impairments;
             _context.Entry(profile).State = EntityState.Modified;
-     
+
             await _context.SaveChangesAsync();
         }
 
