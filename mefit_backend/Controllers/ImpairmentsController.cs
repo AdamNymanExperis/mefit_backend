@@ -12,11 +12,14 @@ using mefit_backend.Service;
 using mefit_backend.Services;
 using mefit_backend.Exceptions;
 using mefit_backend.models.DTO.ImpairmentDtos;
+using Microsoft.AspNetCore.Authorization;
+using System.Data;
 
 namespace mefit_backend.Controllers
 {
     [Route("api/v1")]
     [ApiController]
+    [Authorize(Roles = "USER")]
     public class ImpairmentsController : ControllerBase
     {
         private readonly IImpairmentService _impairmentService;
@@ -54,6 +57,7 @@ namespace mefit_backend.Controllers
 
         // PUT: api/Impairments/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        [Authorize(Roles = "CONTRIBUTOR")]
         [HttpPut("impairment/{id}")]
         public async Task<IActionResult> PutImpairment(int id, PutImpairmentDTO putImpairmentDTO)
         {
@@ -81,6 +85,7 @@ namespace mefit_backend.Controllers
 
         // POST: api/Impairments
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        [Authorize(Roles = "CONTRIBUTOR")]
         [HttpPost("impairment")]
         public async Task<ActionResult<Impairment>> PostImpairment(PostImpairmentDTO impairmentDTO)
         {
@@ -92,6 +97,7 @@ namespace mefit_backend.Controllers
         }
 
         // DELETE: api/Impairments/5
+        [Authorize(Roles = "CONTRIBUTOR")]
         [HttpDelete("impairment/{id}")]
         public async Task<IActionResult> DeleteImpairment(int id)
         {

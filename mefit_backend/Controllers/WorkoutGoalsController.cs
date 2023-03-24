@@ -13,6 +13,8 @@ using mefit_backend.Services;
 using mefit_backend.Exceptions;
 using mefit_backend.Models.DTO.Goal;
 using mefit_backend.models.DTO.WorkoutGoalDtos;
+using Microsoft.AspNetCore.Authorization;
+using System.Data;
 
 namespace mefit_backend.Controllers
 {
@@ -21,6 +23,7 @@ namespace mefit_backend.Controllers
     [Produces(MediaTypeNames.Application.Json)]
     [Consumes(MediaTypeNames.Application.Json)]
     [ApiConventionType(typeof(DefaultApiConventions))]
+    [Authorize(Roles = "USER")]
 
     public class WorkoutGoalsController : ControllerBase
     {

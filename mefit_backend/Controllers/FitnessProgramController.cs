@@ -14,6 +14,8 @@ using mefit_backend.models.DTO.ExerciseDtos;
 using mefit_backend.Models.dto.FitnessProgramDtos;
 using mefit_backend.Exceptions;
 using mefit_backend.Models.DTO.Goal;
+using Microsoft.AspNetCore.Authorization;
+using System.Data;
 
 namespace mefit_backend.Controllers
 {
@@ -22,6 +24,7 @@ namespace mefit_backend.Controllers
     [Produces(MediaTypeNames.Application.Json)]
     [Consumes(MediaTypeNames.Application.Json)]
     [ApiConventionType(typeof(DefaultApiConventions))]
+    [Authorize(Roles = "USER")]
     public class FitnessProgramController : ControllerBase
     {
         private readonly IFitnessProgramService _fitnessProgramService;
@@ -59,6 +62,7 @@ namespace mefit_backend.Controllers
 
         // PUT: api/FitnessPrograms/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        [Authorize(Roles = "CONTRIBUTOR")]
         [HttpPut("fitnessprogram/{id}")]
         public async Task<IActionResult> PutFitnessProgram(int id, PutFitnessProgramDTO putFitnessProgramDTO)
         {
@@ -84,6 +88,7 @@ namespace mefit_backend.Controllers
 
         // POST: api/FitnessPrograms
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        [Authorize(Roles = "CONTRIBUTOR")]
         [HttpPost("fitnessprogram")]
         public async Task<ActionResult<FitnessProgram>> PostFitnessProgram(PostFitnessProgramDTO postFitnessProgramDTO)
         {
@@ -93,6 +98,7 @@ namespace mefit_backend.Controllers
         }
 
         // DELETE: api/FitnessPrograms/5
+        [Authorize(Roles = "CONTRIBUTOR")]
         [HttpDelete("fitnessprogram/{id}")]
         public async Task<IActionResult> DeleteFitnessProgram(int id)
         {
@@ -111,6 +117,7 @@ namespace mefit_backend.Controllers
             return NoContent();
         }
 
+        [Authorize(Roles = "CONTRIBUTOR")]
         [HttpPut("fitnessprogram/{fitnessProgramId}/workouts")]
         public async Task<IActionResult> PutWorkoutsInFitnessProgram(int[] workoutIds, int fitnessProgramId)
         {

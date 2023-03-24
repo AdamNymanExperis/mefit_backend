@@ -12,11 +12,14 @@ using mefit_backend.Services;
 using mefit_backend.Exceptions;
 using mefit_backend.Models.DTO.WorkoutDtos;
 using mefit_backend.models.DTO.ImpairmentDtos;
+using Microsoft.AspNetCore.Authorization;
+using System.Data;
 
 namespace mefit_backend.Controllers
 {
     [Route("api/v1")]
     [ApiController]
+    [Authorize(Roles = "USER")]
     public class WorkoutsController : ControllerBase
     {
        
@@ -55,6 +58,7 @@ namespace mefit_backend.Controllers
 
         // POST: api/Workouts
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        [Authorize(Roles = "CONTRIBUTOR")]
         [HttpPost("workout")]
         public async Task<ActionResult<Workout>> PostWorkout(AddWorkoutDTO addWorkoutDto)
         {
@@ -64,6 +68,7 @@ namespace mefit_backend.Controllers
         }
 
         // DELETE: api/Workouts/5
+        [Authorize(Roles = "CONTRIBUTOR")]
         [HttpDelete("workout/{id}")]
         public async Task<IActionResult> DeleteWorkout(int id)
         {
@@ -108,6 +113,7 @@ namespace mefit_backend.Controllers
             return NoContent();
         }
 
+        [Authorize(Roles = "CONTRIBUTOR")]
         [HttpPut("workout/{workoutId}/exercise")]
         public async Task<IActionResult> PutWorkoutExercisesInWorkout(int[] workoutExercisesIds, int workoutId)
         {

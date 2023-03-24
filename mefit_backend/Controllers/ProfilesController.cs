@@ -4,6 +4,8 @@ using System.Net.Mime;
 using mefit_backend.Exceptions;
 using mefit_backend.Models.DTO.ProfileDtos;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
+using System.Data;
 
 namespace mefit_backend.Controllers
 {
@@ -12,6 +14,7 @@ namespace mefit_backend.Controllers
     [Produces(MediaTypeNames.Application.Json)]
     [Consumes(MediaTypeNames.Application.Json)]
     [ApiConventionType(typeof(DefaultApiConventions))]
+    [Authorize(Roles = "USER")]
 
     public class ProfilesController : ControllerBase
     {
@@ -78,6 +81,7 @@ namespace mefit_backend.Controllers
         }
 
         // DELETE: api/Profiles/5
+        [Authorize(Roles = "ADMIN")]
         [HttpDelete("profile/{id}")]
         public async Task<IActionResult> DeleteProfile(string id)
         {

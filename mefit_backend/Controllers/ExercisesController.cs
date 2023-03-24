@@ -12,6 +12,7 @@ using mefit_backend.Exceptions;
 using AutoMapper;
 using mefit_backend.models.DTO.ExerciseDtos;
 using System.Net.Mime;
+using Microsoft.AspNetCore.Authorization;
 
 namespace mefit_backend.Controllers
 {
@@ -20,6 +21,7 @@ namespace mefit_backend.Controllers
     [Produces(MediaTypeNames.Application.Json)]
     [Consumes(MediaTypeNames.Application.Json)]
     [ApiConventionType(typeof(DefaultApiConventions))]
+    [Authorize(Roles = "USER")]
 
     public class ExercisesController : ControllerBase
     {
@@ -60,6 +62,7 @@ namespace mefit_backend.Controllers
 
         // PUT: api/Exercises/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        [Authorize(Roles = "CONTRIBUTOR")]
         [HttpPut("exercise/{id}")]
         public async Task<IActionResult> PutExercise(int id, PutExerciseDTO exerciseDTO)
         {
@@ -87,6 +90,7 @@ namespace mefit_backend.Controllers
 
         // POST: api/Exercises
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        [Authorize(Roles = "CONTRIBUTOR")]
         [HttpPost("exercise")]
         public async Task<ActionResult<Exercise>> PostExercise(PostExerciseDTO exerciseDTO)
         {
@@ -98,6 +102,7 @@ namespace mefit_backend.Controllers
         }
 
         // DELETE: api/Exercises/5
+        [Authorize(Roles = "CONTRIBUTOR")]
         [HttpDelete("exercise/{id}")]
         public async Task<IActionResult> DeleteExercise(int id)
         {
@@ -116,6 +121,7 @@ namespace mefit_backend.Controllers
             return NoContent();
         }
 
+        [Authorize(Roles = "CONTRIBUTOR")]
         [HttpPut("exercise/{exerciseId}/impairments")]
         public async Task<IActionResult> PutImpairmentsInExercise(int[] impairmentIds, int exerciseId)
         {
