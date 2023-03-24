@@ -117,7 +117,7 @@ namespace mefit_backend.Controllers
         }
 
         [HttpPut("exercise/{exerciseId}/impairments")]
-        public async Task<IActionResult> PutImpairmentsInPorfile(int[] impairmentIds, int exerciseId)
+        public async Task<IActionResult> PutImpairmentsInExercise(int[] impairmentIds, int exerciseId)
         {
             try
             {
