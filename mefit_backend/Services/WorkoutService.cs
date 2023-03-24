@@ -44,6 +44,11 @@ namespace mefit_backend.Services
             return workout;
         }
 
+        public async Task<IEnumerable<Workout>> GetWorkouts()
+        {
+            return await _context.Workouts.Include(x => x.WorkoutGoals).Include(x => x.FitnessPrograms).Include(x => x.WorkoutExercises).ToListAsync(); ;
+        }
+
         public async Task<Workout> UpdateWorkout(Workout workout)
         {
             var foundWorkout = await _context.Workouts.AnyAsync(x => x.Id == workout.Id);

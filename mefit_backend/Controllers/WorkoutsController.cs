@@ -11,6 +11,7 @@ using AutoMapper;
 using mefit_backend.Services;
 using mefit_backend.Exceptions;
 using mefit_backend.Models.DTO.WorkoutDtos;
+using mefit_backend.models.DTO.ImpairmentDtos;
 
 namespace mefit_backend.Controllers
 {
@@ -26,6 +27,13 @@ namespace mefit_backend.Controllers
         {
             _workoutService = workoutService;
             _mapper = mapper;
+        }
+
+        // GET: api/Impairments
+        [HttpGet("workouts")]
+        public async Task<ActionResult<IEnumerable<GetWorkoutDTO>>> GetWorkouts()
+        {
+            return Ok(_mapper.Map<IEnumerable<GetWorkoutDTO>>(await _workoutService.GetWorkouts()));
         }
 
         // GET: api/Workouts/5
