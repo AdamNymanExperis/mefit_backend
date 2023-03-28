@@ -1,19 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using mefit_backend.models;
-using mefit_backend.models.domain;
-using AutoMapper;
-using mefit_backend.Service;
-using mefit_backend.Services;
+﻿using AutoMapper;
 using mefit_backend.Exceptions;
+using mefit_backend.models.domain;
 using mefit_backend.models.DTO.ImpairmentDtos;
+using mefit_backend.Services;
 using Microsoft.AspNetCore.Authorization;
-using System.Data;
+using Microsoft.AspNetCore.Mvc;
 
 namespace mefit_backend.Controllers
 {
@@ -31,14 +22,21 @@ namespace mefit_backend.Controllers
             _mapper = mapper;
         }
 
-        // GET: api/Impairments
+        /// <summary>
+        /// Get all Impairments
+        /// </summary>
+        /// <returns></returns>
         [HttpGet("impairments")]
         public async Task<ActionResult<IEnumerable<GetImpairmentDTO>>> GetImpairments()
         {
             return Ok(_mapper.Map<IEnumerable<GetImpairmentDTO>>(await _impairmentService.GetImpairments()));
         }
 
-        // GET: api/Impairments/5
+        /// <summary>
+        /// Get Impairment by Id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpGet("impairment/{id}")]
         public async Task<ActionResult<GetImpairmentDTO>> GetImpairment(int id)
         {
@@ -55,8 +53,12 @@ namespace mefit_backend.Controllers
             }
         }
 
-        // PUT: api/Impairments/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        /// <summary>
+        /// Put Impairment by id only Contributor
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="putImpairmentDTO"></param>
+        /// <returns></returns>
         [Authorize(Roles = "CONTRIBUTOR")]
         [HttpPut("impairment/{id}")]
         public async Task<IActionResult> PutImpairment(int id, PutImpairmentDTO putImpairmentDTO)
@@ -83,20 +85,27 @@ namespace mefit_backend.Controllers
             return NoContent();
         }
 
-        // POST: api/Impairments
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        /// <summary>
+        /// Post impairment only by Contributor
+        /// </summary>
+        /// <param name="impairmentDTO"></param>
+        /// <returns></returns>
         [Authorize(Roles = "CONTRIBUTOR")]
         [HttpPost("impairment")]
         public async Task<ActionResult<Impairment>> PostImpairment(PostImpairmentDTO impairmentDTO)
         {
             var impairment = _mapper.Map<Impairment>(impairmentDTO);
 
-            await _impairmentService.CreateImpairment(impairment);  
+            await _impairmentService.CreateImpairment(impairment);
 
             return CreatedAtAction("GetImpairment", new { id = impairment.Id }, impairment);
         }
 
-        // DELETE: api/Impairments/5
+        /// <summary>
+        /// delete impairment by id only user with contributor role
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [Authorize(Roles = "CONTRIBUTOR")]
         [HttpDelete("impairment/{id}")]
         public async Task<IActionResult> DeleteImpairment(int id)
@@ -116,9 +125,5 @@ namespace mefit_backend.Controllers
             return NoContent();
         }
 
-        //private bool ImpairmentExists(int id)
-        //{
-        //    return _context.Impairments.Any(e => e.Id == id);
-        //}
     }
 }

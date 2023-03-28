@@ -1,21 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using mefit_backend.models;
-using mefit_backend.models.domain;
-using System.Net.Mime;
-using AutoMapper;
-using mefit_backend.Services;
-using mefit_backend.models.DTO.ExerciseDtos;
-using mefit_backend.Models.dto.FitnessProgramDtos;
+﻿using AutoMapper;
 using mefit_backend.Exceptions;
-using mefit_backend.Models.DTO.Goal;
+using mefit_backend.models.domain;
+using mefit_backend.Models.dto.FitnessProgramDtos;
+using mefit_backend.Services;
 using Microsoft.AspNetCore.Authorization;
-using System.Data;
+using Microsoft.AspNetCore.Mvc;
+using System.Net.Mime;
 
 namespace mefit_backend.Controllers
 {
@@ -36,14 +26,21 @@ namespace mefit_backend.Controllers
             _mapper = mapper;
         }
 
-        // GET: api/FitnessPrograms
+        /// <summary>
+        /// Get fitnessProgram of DTOs 
+        /// </summary>
+        /// <returns></returns>
         [HttpGet("fitnessprograms")]
         public async Task<ActionResult<IEnumerable<GetFitnessProgramDTO>>> GetFitnessPrograms()
         {
             return Ok(_mapper.Map<IEnumerable<GetFitnessProgramDTO>>(await _fitnessProgramService.GetFitnessProgram()));
         }
 
-        // GET: api/FitnessPrograms/5
+        /// <summary>
+        /// Gets a fitnessProgram by id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpGet("fitnessprogram/{id}")]
         public async Task<ActionResult<GetFitnessProgramDTO>> GetFitnessProgram(int id)
         {
@@ -60,8 +57,12 @@ namespace mefit_backend.Controllers
             }
         }
 
-        // PUT: api/FitnessPrograms/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        /// <summary>
+        /// Put fitnessProgram by id for role contributor.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="putFitnessProgramDTO"></param>
+        /// <returns></returns>
         [Authorize(Roles = "CONTRIBUTOR")]
         [HttpPut("fitnessprogram/{id}")]
         public async Task<IActionResult> PutFitnessProgram(int id, PutFitnessProgramDTO putFitnessProgramDTO)
@@ -86,8 +87,11 @@ namespace mefit_backend.Controllers
             return NoContent();
         }
 
-        // POST: api/FitnessPrograms
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        /// <summary>
+        /// Post fitnessProgram by role contributor.
+        /// </summary>
+        /// <param name="postFitnessProgramDTO"></param>
+        /// <returns></returns>
         [Authorize(Roles = "CONTRIBUTOR")]
         [HttpPost("fitnessprogram")]
         public async Task<ActionResult<FitnessProgram>> PostFitnessProgram(PostFitnessProgramDTO postFitnessProgramDTO)
@@ -97,7 +101,11 @@ namespace mefit_backend.Controllers
             return CreatedAtAction(nameof(GetFitnessProgram), new { id = fitnessProgram.Id }, fitnessProgram);
         }
 
-        // DELETE: api/FitnessPrograms/5
+        /// <summary>
+        /// Delete a fitnessProgram by id for role contributor.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [Authorize(Roles = "CONTRIBUTOR")]
         [HttpDelete("fitnessprogram/{id}")]
         public async Task<IActionResult> DeleteFitnessProgram(int id)
@@ -117,6 +125,12 @@ namespace mefit_backend.Controllers
             return NoContent();
         }
 
+        /// <summary>
+        /// Put a fitnessProgram for role contributor.
+        /// </summary>
+        /// <param name="workoutIds"></param>
+        /// <param name="fitnessProgramId"></param>
+        /// <returns></returns>
         [Authorize(Roles = "CONTRIBUTOR")]
         [HttpPut("fitnessprogram/{fitnessProgramId}/workouts")]
         public async Task<IActionResult> PutWorkoutsInFitnessProgram(int[] workoutIds, int fitnessProgramId)

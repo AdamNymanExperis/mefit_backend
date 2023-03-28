@@ -1,20 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using mefit_backend.models;
-using mefit_backend.models.domain;
-using System.Net.Mime;
-using AutoMapper;
-using mefit_backend.Services;
+﻿using AutoMapper;
 using mefit_backend.Exceptions;
-using mefit_backend.Models.DTO.Goal;
+using mefit_backend.models.domain;
 using mefit_backend.models.DTO.WorkoutGoalDtos;
+using mefit_backend.Services;
 using Microsoft.AspNetCore.Authorization;
-using System.Data;
+using Microsoft.AspNetCore.Mvc;
+using System.Net.Mime;
 
 namespace mefit_backend.Controllers
 {
@@ -36,25 +27,33 @@ namespace mefit_backend.Controllers
             _mapper = mapper;
 
         }
-        // GET: api/WorkoutGoals/5
+        /// <summary>
+        /// Get WorkoutGoal By Id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpGet("workoutgoal/{id}")]
         public async Task<ActionResult<GetWorkoutGoalDTO>> GetWorkoutGoal(int id)
         {
-                try
-                {
-                    return Ok(_mapper.Map<GetWorkoutGoalDTO>(await _workoutGoalService.GetWorkoutGoalById(id)));
-                }
-                catch (WorkoutGoalNotFoundException ex)
-                {
-                    return NotFound(new ProblemDetails
-                    {
-                        Detail = ex.Message
-                    });
-                }
+            try
+            {
+                return Ok(_mapper.Map<GetWorkoutGoalDTO>(await _workoutGoalService.GetWorkoutGoalById(id)));
             }
+            catch (WorkoutGoalNotFoundException ex)
+            {
+                return NotFound(new ProblemDetails
+                {
+                    Detail = ex.Message
+                });
+            }
+        }
 
-        // PUT: api/WorkoutGoals/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        /// <summary>
+        /// Put WorkoutGoal By id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="putWorkoutGoalDTO"></param>
+        /// <returns></returns>
         [HttpPut("workoutgoal/{id}")]
         public async Task<IActionResult> PutWorkoutGoal(int id, PutWorkoutGoalDTO putWorkoutGoalDTO)
         {
@@ -78,9 +77,12 @@ namespace mefit_backend.Controllers
             return NoContent();
         }
 
-        // POST: api/WorkoutGoals
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost ("workoutgoal")]
+        /// <summary>
+        /// Post WorkoutGoal
+        /// </summary>
+        /// <param name="postWorkoutGoalDTO"></param>
+        /// <returns></returns>
+        [HttpPost("workoutgoal")]
         public async Task<ActionResult<WorkoutGoal>> PostWorkoutGoal(PostWorkoutGoalDTO postWorkoutGoalDTO)
         {
             var WorkoutGoal = _mapper.Map<WorkoutGoal>(postWorkoutGoalDTO);
@@ -88,7 +90,11 @@ namespace mefit_backend.Controllers
             return CreatedAtAction(nameof(GetWorkoutGoal), new { id = WorkoutGoal.Id }, WorkoutGoal);
         }
 
-        // DELETE: api/WorkoutGoals/5
+        /// <summary>
+        /// Delete WorkoutGoal By Id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpDelete("workoutgoal/{id}")]
         public async Task<IActionResult> DeleteWorkoutGoal(int id)
         {

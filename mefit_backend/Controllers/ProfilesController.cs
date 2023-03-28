@@ -1,11 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using mefit_backend.Services;
-using System.Net.Mime;
+﻿using AutoMapper;
 using mefit_backend.Exceptions;
 using mefit_backend.Models.DTO.ProfileDtos;
-using AutoMapper;
+using mefit_backend.Services;
 using Microsoft.AspNetCore.Authorization;
-using System.Data;
+using Microsoft.AspNetCore.Mvc;
+using System.Net.Mime;
 
 namespace mefit_backend.Controllers
 {
@@ -21,13 +20,17 @@ namespace mefit_backend.Controllers
         private readonly IProfileService _profileService;
         private readonly IMapper _mapper;
 
-        public ProfilesController(IProfileService profileService ,IMapper mapper)
+        public ProfilesController(IProfileService profileService, IMapper mapper)
         {
             _profileService = profileService;
             _mapper = mapper;
         }
 
-        // GET: api/Profiles/5
+        /// <summary>
+        /// Get Profile by id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpGet("profile/{id}")]
         public async Task<ActionResult<GetProfileDTO>> GetProfile(string id)
         {
@@ -44,8 +47,12 @@ namespace mefit_backend.Controllers
             }
         }
 
-        // PUT: api/Profiles/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        /// <summary>
+        /// Put profile by Id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="putProfileDto"></param>
+        /// <returns></returns>
         [HttpPut("profile/{id}")]
         public async Task<IActionResult> PutProfile(int id, PutProfileDTO putProfileDto)
         {
@@ -70,17 +77,24 @@ namespace mefit_backend.Controllers
             return NoContent();
         }
 
-        // POST: api/Profiles
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        /// <summary>
+        /// post a profile
+        /// </summary>
+        /// <param name="createProfileDto"></param>
+        /// <returns></returns>
         [HttpPost("profile")]
         public async Task<ActionResult<models.domain.Profile>> PostProfile(CreateProfileDTO createProfileDto)
         {
-            var profile = _mapper.Map<models.domain.Profile> (createProfileDto);
+            var profile = _mapper.Map<models.domain.Profile>(createProfileDto);
             await _profileService.CreateProfile(profile);
             return CreatedAtAction(nameof(GetProfile), new { id = profile.Id }, profile);
         }
 
-        // DELETE: api/Profiles/5
+        /// <summary>
+        /// Delete profile by id only user with ADMIN role
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [Authorize(Roles = "ADMIN")]
         [HttpDelete("profile/{id}")]
         public async Task<IActionResult> DeleteProfile(string id)
@@ -98,11 +112,17 @@ namespace mefit_backend.Controllers
             }
 
             return NoContent();
- 
+
         }
 
+        /// <summary>
+        /// Put Impairment in Profile
+        /// </summary>
+        /// <param name="impairmentIds"></param>
+        /// <param name="profileId"></param>
+        /// <returns></returns>
         [HttpPut("profile/{profileId}/impairments")]
-        public async Task<IActionResult> PutImpairmentsInPorfile(int[] impairmentIds, string profileId)
+        public async Task<IActionResult> PutImpairmentsInProfile(int[] impairmentIds, string profileId)
         {
             try
             {

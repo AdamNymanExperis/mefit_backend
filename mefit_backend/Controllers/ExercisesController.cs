@@ -1,18 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using mefit_backend.models;
-using mefit_backend.models.domain;
-using mefit_backend.Service;
+﻿using AutoMapper;
 using mefit_backend.Exceptions;
-using AutoMapper;
+using mefit_backend.models.domain;
 using mefit_backend.models.DTO.ExerciseDtos;
-using System.Net.Mime;
+using mefit_backend.Service;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using System.Net.Mime;
 
 namespace mefit_backend.Controllers
 {
@@ -31,10 +24,14 @@ namespace mefit_backend.Controllers
         public ExercisesController(IExerciseService exerciseService, IMapper mapper)
         {
             _exerciseService = exerciseService;
-            _mapper = mapper;   
+            _mapper = mapper;
         }
 
-        // GET: api/Exercises
+        
+        /// <summary>
+        /// Gets all exercises and returns an IEnumerable of DTOs.
+        /// </summary>
+        /// <returns></returns>
         [HttpGet("exercises")]
 
         public async Task<ActionResult<IEnumerable<GetExerciseDTO>>> GetExercises()
@@ -60,8 +57,13 @@ namespace mefit_backend.Controllers
             }
         }
 
-        // PUT: api/Exercises/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        
+        /// <summary>
+        /// Put an exercise by a contributor.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="exerciseDTO"></param>
+        /// <returns></returns>
         [Authorize(Roles = "CONTRIBUTOR")]
         [HttpPut("exercise/{id}")]
         public async Task<IActionResult> PutExercise(int id, PutExerciseDTO exerciseDTO)
@@ -88,8 +90,11 @@ namespace mefit_backend.Controllers
             return NoContent();
         }
 
-        // POST: api/Exercises
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        /// <summary>
+        /// Posts a exercise by a contributor.
+        /// </summary>
+        /// <param name="exerciseDTO"></param>
+        /// <returns></returns>
         [Authorize(Roles = "CONTRIBUTOR")]
         [HttpPost("exercise")]
         public async Task<ActionResult<Exercise>> PostExercise(PostExerciseDTO exerciseDTO)
@@ -101,7 +106,11 @@ namespace mefit_backend.Controllers
             return CreatedAtAction("GetExercise", new { id = exercise.Id }, exercise);
         }
 
-        // DELETE: api/Exercises/5
+        /// <summary>
+        /// Deletes a exercise by a contributor.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [Authorize(Roles = "CONTRIBUTOR")]
         [HttpDelete("exercise/{id}")]
         public async Task<IActionResult> DeleteExercise(int id)
@@ -121,6 +130,12 @@ namespace mefit_backend.Controllers
             return NoContent();
         }
 
+        /// <summary>
+        /// Put a impairment connected to a exercise.
+        /// </summary>
+        /// <param name="impairmentIds"></param>
+        /// <param name="exerciseId"></param>
+        /// <returns></returns>
         [Authorize(Roles = "CONTRIBUTOR")]
         [HttpPut("exercise/{exerciseId}/impairments")]
         public async Task<IActionResult> PutImpairmentsInExercise(int[] impairmentIds, int exerciseId)

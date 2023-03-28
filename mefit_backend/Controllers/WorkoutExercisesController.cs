@@ -1,20 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using mefit_backend.models;
-using mefit_backend.models.domain;
-using System.Net.Mime;
-using AutoMapper;
-using mefit_backend.Services;
+﻿using AutoMapper;
 using mefit_backend.Exceptions;
-using mefit_backend.Models.DTO.Goal;
+using mefit_backend.models.domain;
 using mefit_backend.Models.dto.WorkoutExerciseDtos;
+using mefit_backend.Services;
 using Microsoft.AspNetCore.Authorization;
-using System.Data;
+using Microsoft.AspNetCore.Mvc;
+using System.Net.Mime;
 
 namespace mefit_backend.Controllers
 {
@@ -23,7 +14,7 @@ namespace mefit_backend.Controllers
     [Produces(MediaTypeNames.Application.Json)]
     [Consumes(MediaTypeNames.Application.Json)]
     [ApiConventionType(typeof(DefaultApiConventions))]
-    [Authorize(Roles = "USER")]  
+    [Authorize(Roles = "USER")]
 
     public class WorkoutExercisesController : ControllerBase
     {
@@ -36,25 +27,33 @@ namespace mefit_backend.Controllers
             _mapper = mapper;
 
         }
-        // GET: api/WorkoutExercises/5
+        /// <summary>
+        /// Get WorkoutExercise by Id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpGet("workoutexercise/{id}")]
         public async Task<ActionResult<GetWorkoutExerciseDTO>> GetWorkoutExercise(int id)
         {
-                try
-                {
-                    return Ok(_mapper.Map<GetWorkoutExerciseDTO>(await _workoutExerciseService.GetWorkoutExerciseById(id)));
-                }
-                catch (WorkoutExerciseNotFoundException ex)
-                {
-                    return NotFound(new ProblemDetails
-                    {
-                        Detail = ex.Message
-                    });
-                }
+            try
+            {
+                return Ok(_mapper.Map<GetWorkoutExerciseDTO>(await _workoutExerciseService.GetWorkoutExerciseById(id)));
             }
+            catch (WorkoutExerciseNotFoundException ex)
+            {
+                return NotFound(new ProblemDetails
+                {
+                    Detail = ex.Message
+                });
+            }
+        }
 
-        // PUT: api/WorkoutExercises/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        /// <summary>
+        /// Put WorkoutExercise by Id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="putWorkoutExerciseDTO"></param>
+        /// <returns></returns>
         [Authorize(Roles = "CONTRIBUTOR")]
         [HttpPut("workoutexercise/{id}")]
         public async Task<IActionResult> PutWorkoutExercise(int id, PutWorkoutExerciseDTO putWorkoutExerciseDTO)
@@ -79,10 +78,12 @@ namespace mefit_backend.Controllers
             return NoContent();
         }
 
-        // POST: api/WorkoutExercises
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        /// <summary>
+        /// Post WorkoutExercise Only for user with Contributor Role
+        /// <param name="postWorkoutExerciseDTO"></param>
+        /// <returns></returns>
         [Authorize(Roles = "CONTRIBUTOR")]
-        [HttpPost ("workoutexercise")]
+        [HttpPost("workoutexercise")]
         public async Task<ActionResult<WorkoutExercise>> PostWorkoutExercise(PostWorkoutExerciseDTO postWorkoutExerciseDTO)
         {
             var workoutExercise = _mapper.Map<WorkoutExercise>(postWorkoutExerciseDTO);
@@ -90,7 +91,11 @@ namespace mefit_backend.Controllers
             return CreatedAtAction(nameof(GetWorkoutExercise), new { id = workoutExercise.Id }, workoutExercise);
         }
 
-        // DELETE: api/WorkoutExercises/5
+        /// <summary>
+        /// Delete WorkoutExercise by Id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [Authorize(Roles = "CONTRIBUTOR")]
         [HttpDelete("workoutexercise/{id}")]
         public async Task<IActionResult> DeleteWorkoutExercise(int id)
