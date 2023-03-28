@@ -15,6 +15,6 @@ namespace mefit_backend.models.domain
         public string Country { get; set; }
         
         // relationship 
-        public Profile Profile { get; set; }
+        //public Profile Profile { get; set; }
     }
 }

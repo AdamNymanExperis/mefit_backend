@@ -22,43 +22,6 @@ namespace mefit_backend.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("FitnessProgramGoal", b =>
-                {
-                    b.Property<int>("FitnessProgramId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("GoalId")
-                        .HasColumnType("int");
-
-                    b.HasKey("FitnessProgramId", "GoalId");
-
-                    b.HasIndex("GoalId");
-
-                    b.ToTable("FitnessProgramGoal");
-
-                    b.HasData(
-                        new
-                        {
-                            FitnessProgramId = 1,
-                            GoalId = 1
-                        });
-                });
-
-            modelBuilder.Entity("GoalWorkout", b =>
-                {
-                    b.Property<int>("GoalsId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("WorkoutsId")
-                        .HasColumnType("int");
-
-                    b.HasKey("GoalsId", "WorkoutsId");
-
-                    b.HasIndex("WorkoutsId");
-
-                    b.ToTable("GoalWorkout");
-                });
-
             modelBuilder.Entity("ImpairmentExercise", b =>
                 {
                     b.Property<int>("ExerciseId")
@@ -77,6 +40,71 @@ namespace mefit_backend.Migrations
                         new
                         {
                             ExerciseId = 1,
+                            ImpairmentId = 1
+                        },
+                        new
+                        {
+                            ExerciseId = 1,
+                            ImpairmentId = 3
+                        },
+                        new
+                        {
+                            ExerciseId = 2,
+                            ImpairmentId = 3
+                        },
+                        new
+                        {
+                            ExerciseId = 3,
+                            ImpairmentId = 1
+                        },
+                        new
+                        {
+                            ExerciseId = 3,
+                            ImpairmentId = 3
+                        },
+                        new
+                        {
+                            ExerciseId = 4,
+                            ImpairmentId = 2
+                        },
+                        new
+                        {
+                            ExerciseId = 4,
+                            ImpairmentId = 3
+                        },
+                        new
+                        {
+                            ExerciseId = 5,
+                            ImpairmentId = 1
+                        },
+                        new
+                        {
+                            ExerciseId = 5,
+                            ImpairmentId = 2
+                        },
+                        new
+                        {
+                            ExerciseId = 5,
+                            ImpairmentId = 3
+                        },
+                        new
+                        {
+                            ExerciseId = 6,
+                            ImpairmentId = 1
+                        },
+                        new
+                        {
+                            ExerciseId = 6,
+                            ImpairmentId = 2
+                        },
+                        new
+                        {
+                            ExerciseId = 6,
+                            ImpairmentId = 3
+                        },
+                        new
+                        {
+                            ExerciseId = 7,
                             ImpairmentId = 1
                         });
                 });
@@ -120,8 +148,13 @@ namespace mefit_backend.Migrations
                     b.HasData(
                         new
                         {
-                            FitnessProgramId = 1,
+                            FitnessProgramId = 3,
                             WorkoutId = 1
+                        },
+                        new
+                        {
+                            FitnessProgramId = 3,
+                            WorkoutId = 2
                         });
                 });
 
@@ -199,11 +232,65 @@ namespace mefit_backend.Migrations
                         new
                         {
                             Id = 1,
-                            Description = "Push up with arms",
-                            ImageLink = "some link",
-                            Name = "Pushup",
-                            TargetMuscleGroup = "Biceps",
-                            VideoLink = "some link"
+                            Description = "Beginning from the prone position. Then raise and lower your body using your arms",
+                            ImageLink = "https://www.fitnesseducation.edu.au/wp-content/uploads/2017/03/Pushups.jpg",
+                            Name = "Push-ups",
+                            TargetMuscleGroup = "pectoral muscles, triceps, and anterior deltoids",
+                            VideoLink = "https://www.youtube.com/watch?v=IODxDxX7oi4"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Description = "It begins with lying with the back on the floor, and then elevating both the upper and lower vertebrae from the floor until everything superior to the buttocks is not touching the ground.",
+                            ImageLink = "https://media1.popsugar-assets.com/files/thumbor/H-fK4_7_zgVsPw4eSV584Jm5aN4/fit-in/2048xorig/filters:format_auto-!!-:strip_icc-!!-/2017/08/30/908/n/1922729/6405c6aa84236a1b_Core-Full-Sit-Ups/i/Sit-Ups.jpg",
+                            Name = "sit-ups",
+                            TargetMuscleGroup = "abdominal muscles",
+                            VideoLink = "https://www.youtube.com/watch?v=jDwoBqPH0jk"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Description = "The pull-up is a closed-chain movement where the body is suspended by the hands, gripping a bar or other implement at a distance typically wider than shoulder-width, and pulled up.",
+                            ImageLink = "https://www.gymlivet.com/wp-content/uploads/2015/08/pullups-gymlivet.jpg",
+                            Name = "Pull-ups",
+                            TargetMuscleGroup = " latissimus dorsi, trapezius, and biceps brachii.",
+                            VideoLink = "https://www.youtube.com/watch?v=eGo4IYlbE5g"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Description = "A squat is a strength exercise in which the trainee lowers their hips from a standing position and then stands back up. During the descent, the hip and knee joints flex while the ankle joint dorsiflexes; conversely the hip and knee joints extend and the ankle joint plantarflexes when standing up.",
+                            ImageLink = "https://images.bonnier.cloud/files/ifo/production/20221017085114/Squats2.jpg",
+                            Name = "Squats",
+                            TargetMuscleGroup = "the quadriceps femoris, the adductor magnus, and the gluteus maximus.",
+                            VideoLink = "https://www.youtube.com/watch?v=YaXPRqUwItQ"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Description = "The clean and jerk is a composite of two weightlifting movements, most often performed with a barbell: the clean and the jerk.",
+                            ImageLink = "https://i.ytimg.com/vi/PjY1rH4_MOA/maxresdefault.jpg",
+                            Name = "Clean and Jerk",
+                            TargetMuscleGroup = "Whole body",
+                            VideoLink = "https://www.youtube.com/watch?v=PjY1rH4_MOA"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Description = "The deadlift is a weight training exercise in which a loaded barbell or bar is lifted off the ground to the level of the hips, torso perpendicular to the floor, before being placed back on the ground. It is one of the three powerlifting exercises, along with the squat and bench press.",
+                            ImageLink = "https://i.ytimg.com/vi/1ZXobu7JvvE/maxresdefault.jpg",
+                            Name = "Deadlift",
+                            TargetMuscleGroup = "the gluteus maximus and gluteus minimus",
+                            VideoLink = "https://www.youtube.com/watch?v=1ZXobu7JvvE"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Description = " A weight training exercise where the trainee presses a weight upwards while lying on a weight training bench.",
+                            ImageLink = "https://www.inspireusafoundation.org/wp-content/uploads/2022/06/barbell-bench-press-benefits-1024x576.jpg",
+                            Name = "Bench press",
+                            TargetMuscleGroup = "the pectoralis major, the anterior deltoids, and the triceps",
+                            VideoLink = "https://www.youtube.com/watch?v=rT7DgCr-3pg"
                         });
                 });
 
@@ -232,7 +319,64 @@ namespace mefit_backend.Migrations
                         {
                             Id = 1,
                             Category = "Upper body",
-                            Name = "Program 1"
+                            Name = "Arm Program"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Category = "Lower body",
+                            Name = "Legs Program"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Category = "Upper body",
+                            Name = "Chest Program"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Category = "Upper body",
+                            Name = "Back Program"
+                        });
+                });
+
+            modelBuilder.Entity("mefit_backend.models.domain.FitnessProgramGoal", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("FitnessProgramId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("GoalId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("end")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("start")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("FitnessProgramId");
+
+                    b.HasIndex("GoalId");
+
+                    b.ToTable("FitnessProgramGoals");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            FitnessProgramId = 1,
+                            GoalId = 1,
+                            end = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            start = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         });
                 });
 
@@ -247,11 +391,18 @@ namespace mefit_backend.Migrations
                     b.Property<bool>("Achieved")
                         .HasColumnType("bit");
 
-                    b.Property<DateTime>("EndDate")
-                        .HasColumnType("datetime2");
-
                     b.Property<int>("ProfileId")
                         .HasColumnType("int");
+
+                    b.Property<DateTime>("end")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("start")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -263,9 +414,11 @@ namespace mefit_backend.Migrations
                         new
                         {
                             Id = 1,
-                            Achieved = false,
-                            EndDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ProfileId = 1
+                            Achieved = true,
+                            ProfileId = 1,
+                            end = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            start = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            title = "Goal 1"
                         });
                 });
 
@@ -293,8 +446,20 @@ namespace mefit_backend.Migrations
                         new
                         {
                             Id = 1,
-                            Description = "Cannot use legs",
-                            Name = "I have no legs"
+                            Description = "Having problems with exercises involving the arms",
+                            Name = "Arms Impairments"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Description = "Having problems with exercises involving the legs",
+                            Name = "Legs Impairments"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Description = "Having problems with exercises involving the back",
+                            Name = "Back Impairments"
                         });
                 });
 
@@ -306,25 +471,17 @@ namespace mefit_backend.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("AddressId")
-                        .HasColumnType("int");
-
                     b.Property<int>("Height")
-                        .HasColumnType("int");
-
-                    b.Property<int>("UserId")
                         .HasColumnType("int");
 
                     b.Property<int>("Weight")
                         .HasColumnType("int");
 
+                    b.Property<string>("keycloakId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
-
-                    b.HasIndex("AddressId")
-                        .IsUnique();
-
-                    b.HasIndex("UserId")
-                        .IsUnique();
 
                     b.ToTable("Profiles");
 
@@ -332,10 +489,9 @@ namespace mefit_backend.Migrations
                         new
                         {
                             Id = 1,
-                            AddressId = 1,
                             Height = 180,
-                            UserId = 1,
-                            Weight = 80
+                            Weight = 80,
+                            keycloakId = "5289cc70-cc80-42ee-9875-f4f685b75f5b"
                         });
                 });
 
@@ -349,11 +505,13 @@ namespace mefit_backend.Migrations
 
                     b.Property<string>("Email")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(320)
+                        .HasColumnType("nvarchar(320)");
 
                     b.Property<string>("FirstName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<bool>("IsAdmin")
                         .HasColumnType("bit");
@@ -363,7 +521,8 @@ namespace mefit_backend.Migrations
 
                     b.Property<string>("LastName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("Password")
                         .IsRequired()
@@ -414,7 +573,14 @@ namespace mefit_backend.Migrations
                         {
                             Id = 1,
                             Complete = false,
-                            Name = "Power Hour",
+                            Name = "Power Lift",
+                            Type = "Hardcore"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Complete = false,
+                            Name = "Chest Day",
                             Type = "Hardcore"
                         });
                 });
@@ -445,16 +611,48 @@ namespace mefit_backend.Migrations
 
                     b.HasIndex("WorkoutId");
 
-                    b.ToTable("WorkoutExercise");
+                    b.ToTable("WorkoutExercises");
 
                     b.HasData(
                         new
                         {
                             Id = 1,
-                            ExerciseId = 1,
+                            ExerciseId = 4,
                             Repetition = 3,
                             Set = 5,
                             WorkoutId = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            ExerciseId = 6,
+                            Repetition = 3,
+                            Set = 5,
+                            WorkoutId = 1
+                        },
+                        new
+                        {
+                            Id = 3,
+                            ExerciseId = 7,
+                            Repetition = 3,
+                            Set = 5,
+                            WorkoutId = 1
+                        },
+                        new
+                        {
+                            Id = 4,
+                            ExerciseId = 1,
+                            Repetition = 3,
+                            Set = 5,
+                            WorkoutId = 2
+                        },
+                        new
+                        {
+                            Id = 5,
+                            ExerciseId = 7,
+                            Repetition = 3,
+                            Set = 5,
+                            WorkoutId = 2
                         });
                 });
 
@@ -466,14 +664,17 @@ namespace mefit_backend.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<DateTime>("EndDate")
-                        .HasColumnType("datetime2");
-
                     b.Property<int>("GoalId")
                         .HasColumnType("int");
 
                     b.Property<int>("WorkoutId")
                         .HasColumnType("int");
+
+                    b.Property<DateTime>("end")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("start")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
@@ -481,46 +682,17 @@ namespace mefit_backend.Migrations
 
                     b.HasIndex("WorkoutId");
 
-                    b.ToTable("WorkoutGoal");
+                    b.ToTable("WorkoutGoals");
 
                     b.HasData(
                         new
                         {
                             Id = 1,
-                            EndDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             GoalId = 1,
-                            WorkoutId = 1
+                            WorkoutId = 1,
+                            end = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            start = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         });
-                });
-
-            modelBuilder.Entity("FitnessProgramGoal", b =>
-                {
-                    b.HasOne("mefit_backend.models.domain.FitnessProgram", null)
-                        .WithMany()
-                        .HasForeignKey("FitnessProgramId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("mefit_backend.models.domain.Goal", null)
-                        .WithMany()
-                        .HasForeignKey("GoalId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("GoalWorkout", b =>
-                {
-                    b.HasOne("mefit_backend.models.domain.Goal", null)
-                        .WithMany()
-                        .HasForeignKey("GoalsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("mefit_backend.models.domain.Workout", null)
-                        .WithMany()
-                        .HasForeignKey("WorkoutsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("ImpairmentExercise", b =>
@@ -568,6 +740,25 @@ namespace mefit_backend.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("mefit_backend.models.domain.FitnessProgramGoal", b =>
+                {
+                    b.HasOne("mefit_backend.models.domain.FitnessProgram", "FitnessProgram")
+                        .WithMany("FitnessProgramGoals")
+                        .HasForeignKey("FitnessProgramId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("mefit_backend.models.domain.Goal", "Goal")
+                        .WithMany("FitnessProgramGoals")
+                        .HasForeignKey("GoalId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("FitnessProgram");
+
+                    b.Navigation("Goal");
+                });
+
             modelBuilder.Entity("mefit_backend.models.domain.Goal", b =>
                 {
                     b.HasOne("mefit_backend.models.domain.Profile", "Profile")
@@ -579,25 +770,6 @@ namespace mefit_backend.Migrations
                     b.Navigation("Profile");
                 });
 
-            modelBuilder.Entity("mefit_backend.models.domain.Profile", b =>
-                {
-                    b.HasOne("mefit_backend.models.domain.Address", "Address")
-                        .WithOne("Profile")
-                        .HasForeignKey("mefit_backend.models.domain.Profile", "AddressId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("mefit_backend.models.domain.User", "User")
-                        .WithOne("Profile")
-                        .HasForeignKey("mefit_backend.models.domain.Profile", "UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Address");
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("mefit_backend.models.domain.WorkoutExercise", b =>
                 {
                     b.HasOne("mefit_backend.models.domain.Exercise", "Exercise")
@@ -607,7 +779,7 @@ namespace mefit_backend.Migrations
                         .IsRequired();
 
                     b.HasOne("mefit_backend.models.domain.Workout", "Workout")
-                        .WithMany("WorkoutExercise")
+                        .WithMany("WorkoutExercises")
                         .HasForeignKey("WorkoutId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -619,14 +791,14 @@ namespace mefit_backend.Migrations
 
             modelBuilder.Entity("mefit_backend.models.domain.WorkoutGoal", b =>
                 {
-                    b.HasOne("mefit_backend.models.domain.Exercise", "Goal")
-                        .WithMany()
+                    b.HasOne("mefit_backend.models.domain.Goal", "Goal")
+                        .WithMany("WorkoutGoals")
                         .HasForeignKey("GoalId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("mefit_backend.models.domain.Workout", "Workout")
-                        .WithMany()
+                        .WithMany("WorkoutGoals")
                         .HasForeignKey("WorkoutId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -636,15 +808,21 @@ namespace mefit_backend.Migrations
                     b.Navigation("Workout");
                 });
 
-            modelBuilder.Entity("mefit_backend.models.domain.Address", b =>
-                {
-                    b.Navigation("Profile")
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("mefit_backend.models.domain.Exercise", b =>
                 {
                     b.Navigation("WorkoutExercise");
+                });
+
+            modelBuilder.Entity("mefit_backend.models.domain.FitnessProgram", b =>
+                {
+                    b.Navigation("FitnessProgramGoals");
+                });
+
+            modelBuilder.Entity("mefit_backend.models.domain.Goal", b =>
+                {
+                    b.Navigation("FitnessProgramGoals");
+
+                    b.Navigation("WorkoutGoals");
                 });
 
             modelBuilder.Entity("mefit_backend.models.domain.Profile", b =>
@@ -652,15 +830,11 @@ namespace mefit_backend.Migrations
                     b.Navigation("Goals");
                 });
 
-            modelBuilder.Entity("mefit_backend.models.domain.User", b =>
-                {
-                    b.Navigation("Profile")
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("mefit_backend.models.domain.Workout", b =>
                 {
-                    b.Navigation("WorkoutExercise");
+                    b.Navigation("WorkoutExercises");
+
+                    b.Navigation("WorkoutGoals");
                 });
 #pragma warning restore 612, 618
         }

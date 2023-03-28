@@ -8,6 +8,6 @@
 
         // Relationship
         public ICollection<Workout> Workouts { get; set; }
-        public ICollection<Goal> Goals { get; set; }
+        public ICollection<FitnessProgramGoal> FitnessProgramGoals { get; set; }
     }
 }

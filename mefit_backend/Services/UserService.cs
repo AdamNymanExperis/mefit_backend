@@ -34,26 +34,41 @@ namespace mefit_backend.Service
 
         public async Task DeleteUser(int id)
         {
-            var character = await _context.Users.FindAsync(id);
-            if (character == null)
+            var foundUser = await _context.Users.FindAsync(id);
+            if (foundUser == null)
             {
                 throw new UserNotFoundException(id);
             }
 
-            _context.Users.Remove(character);
+            _context.Users.Remove(foundUser);
             await _context.SaveChangesAsync();
         }
 
         public async Task<User> UpdateUser(User user)
         {
-            var foundCharacter = await _context.Users.AnyAsync(x => x.Id == user.Id);
-            if (!foundCharacter)
+            var foundUser = await _context.Users.AnyAsync(x => x.Id == user.Id);
+            if (!foundUser)
             {
                 throw new UserNotFoundException(user.Id);
             }
             _context.Entry(user).State = EntityState.Modified;
             await _context.SaveChangesAsync();
             return user;
+        }
+
+        public async Task<User> UpdateUserPassword(int id, string password)
+        {
+            var foundUser = await _context.Users.FindAsync(id);
+            if (foundUser == null)
+            {
+                throw new UserNotFoundException(id);
+            }
+
+            foundUser.Password = password;
+
+            _context.Entry(foundUser).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
+            return foundUser;
         }
     }
 }
