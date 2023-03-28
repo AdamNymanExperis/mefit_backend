@@ -1,20 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using mefit_backend.models;
-using mefit_backend.models.domain;
-using System.Net.Mime;
-using AutoMapper;
-using mefit_backend.Services;
+﻿using AutoMapper;
 using mefit_backend.Exceptions;
-using mefit_backend.Models.DTO.ProfileDtos;
+using mefit_backend.models.domain;
 using mefit_backend.Models.DTO.Goal;
+using mefit_backend.Services;
 using Microsoft.AspNetCore.Authorization;
-using System.Data;
+using Microsoft.AspNetCore.Mvc;
+using System.Net.Mime;
 
 namespace mefit_backend.Controllers
 {
@@ -37,7 +28,11 @@ namespace mefit_backend.Controllers
         }
 
 
-        // GET: api/Goals/5
+        /// <summary>
+        /// Get Goal By Id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpGet("goal/{id}")]
         public async Task<ActionResult<GetGoalDTO>> GetGoal(int id)
         {
@@ -54,8 +49,12 @@ namespace mefit_backend.Controllers
             }
         }
 
-        // PUT: api/Goals/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        /// <summary>
+        /// Put goal by Id 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="putGoalDTO"></param>
+        /// <returns></returns>
         [HttpPut("goal/{id}")]
         public async Task<IActionResult> PutGoal(int id, PutGoalDTO putGoalDTO)
         {
@@ -78,8 +77,11 @@ namespace mefit_backend.Controllers
             }
             return NoContent();
         }
-        // POST: api/Goals
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        /// <summary>
+        /// Post a Goal by Id
+        /// </summary>
+        /// <param name="createGoalDTO"></param>
+        /// <returns></returns>
         [HttpPost("goal")]
         public async Task<ActionResult<Goal>> PostGoal(CreateGoalDTO createGoalDTO)
         {
@@ -88,7 +90,11 @@ namespace mefit_backend.Controllers
             return CreatedAtAction(nameof(GetGoal), new { id = goal.Id }, goal);
         }
 
-        // DELETE: api/Goals/5
+        /// <summary>
+        /// Delete goal by Id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpDelete("goal/{id}")]
         public async Task<IActionResult> DeleteGoal(int id)
         {
@@ -107,13 +113,19 @@ namespace mefit_backend.Controllers
             return NoContent();
         }
 
+        /// <summary>
+        /// Get goal by profile Id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpGet("goals/profile/{id}")]
-        public async Task<ActionResult<IEnumerable<Goal>>> GetGoalsByProfileId(string id) 
+        public async Task<ActionResult<IEnumerable<Goal>>> GetGoalsByProfileId(string id)
         {
-            try 
+            try
             {
                 return Ok(_mapper.Map<IEnumerable<GetGoalDTO>>(await _goalService.GetGoalsByProfileId(id)));
-            } catch (GoalNotFoundException ex)
+            }
+            catch (GoalNotFoundException ex)
             {
                 return NotFound(new ProblemDetails
                 {

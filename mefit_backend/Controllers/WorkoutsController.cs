@@ -1,19 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using mefit_backend.models;
-using mefit_backend.models.domain;
-using AutoMapper;
-using mefit_backend.Services;
+﻿using AutoMapper;
 using mefit_backend.Exceptions;
+using mefit_backend.models.domain;
 using mefit_backend.Models.DTO.WorkoutDtos;
-using mefit_backend.models.DTO.ImpairmentDtos;
+using mefit_backend.Services;
 using Microsoft.AspNetCore.Authorization;
-using System.Data;
+using Microsoft.AspNetCore.Mvc;
 
 namespace mefit_backend.Controllers
 {
@@ -22,7 +13,7 @@ namespace mefit_backend.Controllers
     [Authorize(Roles = "USER")]
     public class WorkoutsController : ControllerBase
     {
-       
+
         private readonly IWorkoutService _workoutService;
         private readonly IMapper _mapper;
 
@@ -32,14 +23,21 @@ namespace mefit_backend.Controllers
             _mapper = mapper;
         }
 
-        // GET: api/Impairments
+        /// <summary>
+        /// Get All WorkOuts
+        /// </summary>
+        /// <returns></returns>
         [HttpGet("workouts")]
         public async Task<ActionResult<IEnumerable<GetWorkoutDTO>>> GetWorkouts()
         {
             return Ok(_mapper.Map<IEnumerable<GetWorkoutDTO>>(await _workoutService.GetWorkouts()));
         }
 
-        // GET: api/Workouts/5
+        /// <summary>
+        /// Get Workouts By Id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpGet("workout/{id}")]
         public async Task<ActionResult<GetWorkoutDTO>> GetWorkout(int id)
         {
@@ -56,8 +54,11 @@ namespace mefit_backend.Controllers
             }
         }
 
-        // POST: api/Workouts
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        /// <summary>
+        /// Post Workout only by user With Contributor Role
+        /// </summary>
+        /// <param name="addWorkoutDto"></param>
+        /// <returns></returns>
         [Authorize(Roles = "CONTRIBUTOR")]
         [HttpPost("workout")]
         public async Task<ActionResult<Workout>> PostWorkout(AddWorkoutDTO addWorkoutDto)
@@ -67,7 +68,11 @@ namespace mefit_backend.Controllers
             return CreatedAtAction(nameof(GetWorkout), new { id = workout.Id }, workout);
         }
 
-        // DELETE: api/Workouts/5
+        /// <summary>
+        /// Delete Workouts only by user With Contributor Role
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [Authorize(Roles = "CONTRIBUTOR")]
         [HttpDelete("workout/{id}")]
         public async Task<IActionResult> DeleteWorkout(int id)
@@ -87,8 +92,12 @@ namespace mefit_backend.Controllers
             return NoContent();
         }
 
-        // PUT: api/Workouts/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        /// <summary>
+        /// Put workout by Id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="putWorkoutDTO"></param>
+        /// <returns></returns>
         [HttpPut("workout/{id}")]
         public async Task<IActionResult> PutWorkout(int id, PutWorkoutDTO putWorkoutDTO)
         {
@@ -113,6 +122,12 @@ namespace mefit_backend.Controllers
             return NoContent();
         }
 
+        /// <summary>
+        /// Put WokroutExercises in Workout by workout Id only by user With Contributor Role
+        /// </summary>
+        /// <param name="workoutExercisesIds"></param>
+        /// <param name="workoutId"></param>
+        /// <returns></returns>
         [Authorize(Roles = "CONTRIBUTOR")]
         [HttpPut("workout/{workoutId}/exercise")]
         public async Task<IActionResult> PutWorkoutExercisesInWorkout(int[] workoutExercisesIds, int workoutId)

@@ -13,6 +13,9 @@ using mefit_backend.Exceptions;
 using AutoMapper;
 using mefit_backend.Models.DTO.User;
 
+///Not Longer In Use, but not removed because might ruin database
+/// Might be used in the Future
+
 namespace mefit_backend.Controllers
 {
     [Route("api/v1")]
