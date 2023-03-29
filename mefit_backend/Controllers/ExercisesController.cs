@@ -40,7 +40,11 @@ namespace mefit_backend.Controllers
             return Ok(_mapper.Map<IEnumerable<GetExerciseDTO>>(await _exerciseService.GetExercises()));
         }
 
-        // GET: api/Exercises/5
+        /// <summary>
+        /// Get Exercise by Id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpGet("exercise/{id}")]
         public async Task<ActionResult<Exercise>> GetExercise(int id)
         {

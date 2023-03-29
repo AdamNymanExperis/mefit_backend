@@ -5,11 +5,15 @@ using mefit_backend.Models.DTO.WorkoutDtos;
 using mefit_backend.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Net.Mime;
 
 namespace mefit_backend.Controllers
 {
     [Route("api/v1")]
     [ApiController]
+    [Produces(MediaTypeNames.Application.Json)]
+    [Consumes(MediaTypeNames.Application.Json)]
+    [ApiConventionType(typeof(DefaultApiConventions))]
     [Authorize(Roles = "USER")]
     public class WorkoutsController : ControllerBase
     {

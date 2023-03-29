@@ -80,6 +80,7 @@ namespace mefit_backend.Controllers
 
         /// <summary>
         /// Post WorkoutExercise Only for user with Contributor Role
+        /// </summary>
         /// <param name="postWorkoutExerciseDTO"></param>
         /// <returns></returns>
         [Authorize(Roles = "CONTRIBUTOR")]

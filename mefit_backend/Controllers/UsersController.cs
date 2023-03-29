@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Authorization;
 using mefit_backend.Exceptions;
 using AutoMapper;
 using mefit_backend.Models.DTO.User;
+using System.Net.Mime;
 
 ///Not Longer In Use, but not removed because might ruin database
 /// Might be used in the Future
@@ -20,6 +21,10 @@ namespace mefit_backend.Controllers
 {
     [Route("api/v1")]
     [ApiController]
+    [Produces(MediaTypeNames.Application.Json)]
+    [Consumes(MediaTypeNames.Application.Json)]
+    [ApiConventionType(typeof(DefaultApiConventions))]
+
     public class UsersController : ControllerBase
     {
         private readonly IUserService _userService;
