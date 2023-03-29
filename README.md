@@ -7,6 +7,11 @@ This application is also deployed to Azure cloud services. It is set up to be us
 ## Technologies 
 Technologies used for the assignment is [Visual Studio 2022](https://visualstudio.microsoft.com/vs/) (.Net 6.0), [SQL server management studio](https://learn.microsoft.com/en-us/sql/ssms/download-sql-server-management-studio-ssms?view=sql-server-ver16), ASP.Net Web Api.
 
+## ER-Diagram
+The database was modelled before anything was actually implemented. The ER-diagram that was then created can be seen in the picture below. However, do note that 
+the diagram is not a one to one representation of the database. A few attributes of some of the entites has been updated and two entities, namely user and address, is currently no longer in use. 
+![alt text](https://github.com/AdamNymanExperis/mefit_backend/blob/main/mefit_backend/ERD_Mar_09.drawio.png?raw=true)
+
 # Installation
 Firstly, to run this project you need to setup SQL Server Management System to handle the database. 
 ## install database
